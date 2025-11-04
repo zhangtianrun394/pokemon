@@ -1,0 +1,282 @@
+
+.login-container {
+		position: relative;
+		width: 100vw;
+		height: 100vh;
+		overflow: hidden;
+}
+
+	/* 状态栏 */
+.status-bar {
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
+		padding: 0.3125rem 0.9375rem;
+		background-color: rgba(255, 255, 255, 0.1);
+		-webkit-backdrop-filter: blur(0.3125rem);
+		        backdrop-filter: blur(0.3125rem);
+		height: 1.25rem;
+		position: relative;
+		z-index: 10;
+}
+.icons {
+		display: flex;
+		gap: 0.3125rem;
+}
+.icon {
+		width: 1.25rem;
+		height: 0.625rem;
+		background-color: rgba(255, 255, 255, 0.7);
+		border-radius: 0.125rem;
+}
+
+	/* 顶部导航栏 */
+.header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 0.625rem 0.9375rem;
+		background: linear-gradient(to bottom, #1E3A8A, #FF3B30);
+		color: #ffffff;
+		position: relative;
+		z-index: 10;
+}
+.back-btn {
+		width: 2.5rem;
+		height: 1.875rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+}
+.back-text {
+		font-size: 1.125rem;
+		font-weight: bold;
+		color: #ffffff;
+}
+.title {
+		font-size: 1.125rem;
+		font-weight: bold;
+		flex: 1;
+		text-align: center;
+}
+
+	/* 背景层样式 */
+.background-layer {
+		position: fixed;
+		top: 5rem; /* 从导航栏下方开始显示，避免被导航栏遮挡 */
+		left: 0;
+		width: 100%;
+		height: calc(100% - 5rem); /* 减去导航栏高度 */
+		z-index: 1;
+}
+.background-image {
+		width: 100%;
+		height: 100%;
+		object-fit: contain; /* 改为contain确保完整显示图片 */
+		background-color: #FFCB05; /* 添加背景色填充空白区域 */
+}
+.overlay {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: #FFCB05;
+		opacity: 0.2;
+		z-index: 2;
+}
+
+	/* 加载指示器样式 */
+.loading-indicator {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		background: rgba(0, 0, 0, 0.7);
+		border-radius: 0.625rem;
+		padding: 0.9375rem 1.5625rem;
+		z-index: 4;
+}
+.loading-text {
+		color: white;
+		font-size: 0.875rem;
+		font-weight: 500;
+}
+
+	/* 内容层样式 */
+.content-layer {
+		position: relative;
+		z-index: 3;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding: 2.5rem 1.25rem 1.25rem;
+		background: transparent;
+}
+
+	/* 页面标题样式 */
+.page-title {
+		text-align: center;
+		margin-bottom: 2.5rem;
+		margin-top: 1.875rem;
+}
+.main-title {
+		display: block;
+		font-size: 1.5rem;
+		font-weight: bold;
+		background: linear-gradient(to bottom, #1E3A8A, #FF3B30);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
+		text-shadow: 0 0.0625rem 0.125rem rgba(255, 255, 255, 0.8);
+		margin-bottom: 0.5rem;
+}
+.sub-title {
+		display: block;
+		font-size: 0.875rem;
+		color: #333333;
+		text-shadow: 0 0.03125rem 0.0625rem rgba(255, 255, 255, 0.8);
+}
+
+	/* 切换标签栏样式 */
+.tabs {
+		display: flex;
+		justify-content: space-around;
+		margin-bottom: 1.875rem;
+		width: 100%;
+		max-width: 18.75rem;
+		background: linear-gradient(to bottom, #FF3B30, #FF6B6B);
+		border-radius: 0.75rem;
+		padding: 0.625rem;
+		box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.2);
+		-webkit-backdrop-filter: blur(0.15625rem);
+		        backdrop-filter: blur(0.15625rem);
+		border: 0.03125rem solid rgba(255, 255, 255, 0.3);
+}
+.tab {
+		padding: 0.625rem 1.25rem;
+		font-size: 1rem;
+		color: #FFFFFF;
+		cursor: pointer;
+		border-bottom: 0.125rem solid transparent;
+		transition: all 0.3s;
+		border-radius: 0.5rem;
+		font-weight: 600;
+}
+.tab.active {
+		background: rgba(255, 255, 255, 0.2);
+		font-weight: bold;
+		border-bottom: 0.125rem solid #FF3B30;
+		box-shadow: 0 0.0625rem 0.25rem rgba(0, 0, 0, 0.3);
+}
+.tab-text {
+		color: inherit;
+}
+.tab.active .tab-text {
+		background: linear-gradient(to bottom, #FF3B30, #FF6B6B);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
+}
+
+	/* 表单容器样式 */
+.form-container {
+		width: 100%;
+		max-width: 18.75rem;
+		background: rgba(255, 255, 255, 0.5);
+		border-radius: 0.75rem;
+		padding: 1.25rem;
+		box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.15);
+		-webkit-backdrop-filter: blur(0.15625rem);
+		        backdrop-filter: blur(0.15625rem);
+		border: 0.03125rem solid rgba(255, 255, 255, 0.5);
+}
+.input-group {
+		display: flex;
+		align-items: center;
+		margin-bottom: 0.9375rem;
+		border: 0.0625rem solid rgba(0, 0, 0, 0.3);
+		border-radius: 0.5rem;
+		padding: 0.625rem;
+		transition: all 0.3s;
+		background: rgba(255, 255, 255, 0.6);
+}
+.input-group:focus-within {
+		border-color: #FFCB05;
+		box-shadow: 0 0 0 0.0625rem rgba(255, 203, 5, 0.4);
+		background: rgba(255, 255, 255, 0.8);
+}
+.input-icon {
+		margin-right: 0.625rem;
+		font-size: 1rem;
+		color: #333333;
+}
+.eye-icon {
+		margin-left: auto;
+		cursor: pointer;
+		font-size: 1rem;
+		color: #666666;
+		padding: 0.125rem;
+		border-radius: 0.25rem;
+		transition: background-color 0.3s;
+}
+.eye-icon:active {
+		background-color: rgba(0, 0, 0, 0.1);
+}
+.input-field {
+		flex: 1;
+		font-size: 0.875rem;
+		border: none;
+		outline: none;
+		background: transparent;
+		color: #000000;
+		font-weight: 500;
+}
+.input-field::-webkit-input-placeholder {
+		color: #666666;
+}
+.input-field::placeholder {
+		color: #666666;
+}
+.submit-btn {
+		background: linear-gradient(to bottom, #FF3B30, #FF6B6B);
+		color: white;
+		border: none;
+		border-radius: 0.5rem;
+		padding: 0.5625rem 1.25rem;
+		font-size: 0.875rem;
+		font-weight: bold;
+		width: 80%;
+		margin: 0.625rem auto 0;
+		cursor: pointer;
+		transition: all 0.3s;
+		box-shadow: 0 0.125rem 0.375rem rgba(0, 0, 0, 0.3);
+		border: 0.0625rem solid rgba(255, 255, 255, 0.3);
+		display: block;
+}
+.submit-btn:active {
+		transform: translateY(0.0625rem);
+		box-shadow: 0 0.0625rem 0.1875rem rgba(0, 0, 0, 0.3);
+		background: linear-gradient(to bottom, #FF6B6B, #FF3B30);
+}
+.footer-links {
+		display: flex;
+		justify-content: center;
+		margin-top: 0.9375rem;
+}
+.link {
+		color: #007AFF;
+		font-size: 0.875rem;
+		cursor: pointer;
+		text-decoration: underline;
+		transition: color 0.3s;
+		font-weight: 500;
+}
+.link:active {
+		color: #0056CC;
+}
+.switch-link {
+		color: #666666;
+		font-weight: 500;
+}

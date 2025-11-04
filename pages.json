@@ -1,0 +1,70 @@
+{
+	"pages": [ 
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationStyle": "custom",
+				"enablePullDownRefresh": false,
+				"backgroundColor": "#1D3557"
+			}
+		},
+		{
+			"path": "pages/debug/config",
+			"style": {
+				"navigationBarTitleText": "配置自检",
+				"navigationBarBackgroundColor": "#1D3557",
+				"navigationBarTextStyle": "white"
+			}
+		},
+		{
+			"path": "pages/detail/detail",
+			"style": {
+				"navigationStyle": "custom",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/login/index",
+			"style": {
+				"navigationStyle": "custom",
+				"enablePullDownRefresh": false,
+				"backgroundColor": "#FFCB05"
+			}
+		},
+		{
+			"path": "pages/community/create",
+			"style": {
+				"navigationStyle": "custom",
+				"enablePullDownRefresh": false,
+				"navigationBarTitleText": "发布帖子"
+			}
+		},
+		{
+			"path": "pages/wiki/wiki",
+			"style": {
+				"navigationBarTitleText": "宝可梦百科",
+				"navigationBarBackgroundColor": "#1D3557",
+				"navigationBarTextStyle": "white"
+			}
+		},
+		{
+			"path": "pages/moves/moves",
+			"style": {
+				"navigationStyle": "custom",
+				"navigationBarTitleText": "招式与列表",
+				"navigationBarBackgroundColor": "#1D3557",
+				"navigationBarTextStyle": "white"
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "white",
+		"navigationBarTitleText": "宝可梦图鉴",
+		"navigationBarBackgroundColor": "#1D3557",
+		"backgroundColor": "#1D3557",
+		"app-plus": {
+			"background": "#1D3557"
+		}
+	},
+	"uniIdRouter": {}
+}
