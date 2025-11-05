@@ -730,6 +730,20 @@ export async function createBlogPost({ uid, title, content, accessToken }) {
 
 // 拉取 blog 列表（按 blog_id 倒序）
 export async function fetchBlogs(limit = 50) {
-  const data = await uniGet('blog', { select: 'blog_id,uid,title,content', order: 'blog_id.desc', limit: String(limit) })
+  const data = await uniGet('blog', { select: 'blog_id,uid,title,content,created_at', order: 'blog_id.desc', limit: String(limit) })
   return Array.isArray(data) ? data : []
+}
+
+// 批量查询作者资料（根据 profiles.id in (...))，返回数组 [{id, full_name, avatar_url}]
+export async function fetchProfilesByIds(ids = []) {
+  await initSupabaseEnv()
+  const unique = Array.from(new Set((ids || []).filter(Boolean)))
+  if (!unique.length) return []
+  try {
+    const rows = await uniGet('profiles', { select: 'id,full_name,avatar_url,email', id: `in.(${unique.join(',')})` })
+    return Array.isArray(rows) ? rows : []
+  } catch (e) {
+    console.warn('[profiles] 批量查询失败:', e && e.message ? e.message : e)
+    return []
+  }
 }

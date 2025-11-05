@@ -314,23 +314,43 @@ export default {
 				try {
 					const list = await fetchBlogs(50)
 					if (Array.isArray(list)) {
-						const displayName = (uni.getStorageSync('user')||{}).name || '用户'
-						this.communityPosts = list.map(b => ({
-							id: b.blog_id,
-							avatar: 'https://ai-public.mastergo.com/ai/img_res/a80f1e0b5ba3d38b3dccce7abc7d0323.jpg',
-							username: displayName,
-							time: '刚刚',
-							content: b.content,
-							image: '',
-							video: '',
-							likes: 0, liked: false, comments: 0, favorites: 0, favorited: false,
-							commentList: []
-						}))
+						// 1) 先把列表按 uid 分组；2) 批量查询作者 profiles；3) 回填作者名/头像
+						import('../../src/lib/pokeData.js').then(async m => {
+							const { fetchProfilesByIds } = m
+							const uids = Array.from(new Set(list.map(b => b.uid).filter(Boolean)))
+							let profileMap = new Map()
+							if (uids.length) {
+								const profiles = await fetchProfilesByIds(uids)
+								profileMap = new Map(profiles.map(p => [p.id, p]))
+							}
+							this.communityPosts = list.map(b => {
+								const p = profileMap.get(b.uid) || {}
+								return {
+									id: b.blog_id,
+									avatar: p.avatar_url || 'https://ai-public.mastergo.com/ai/img_res/a80f1e0b5ba3d38b3dccce7abc7d0323.jpg',
+									username: p.full_name || p.email || '用户',
+									time: this.formatBlogTime(b.created_at),
+									content: b.content,
+									image: '',
+									video: '',
+									likes: 0, liked: false, comments: 0, favorites: 0, favorited: false,
+									commentList: []
+								}
+							})
+						})
 					}
 				} catch(err) { console.warn('加载 blog 列表失败', err && err.message ? err.message : err) }
 			})()
 		},
 		methods: {
+			formatBlogTime(ts) {
+				try {
+					const d = new Date(ts)
+					if (!d || isNaN(d)) return ''
+					const pad = n => String(n).padStart(2, '0')
+					return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())} ${pad(d.getHours())}`
+				} catch(e) { return '' }
+			},
 			// 社区数据与交互
 			goBack() { this.activePage = 'pokedex' },
 			createPost() { uni.navigateTo({ url: '/pages/community/create' }) },
@@ -342,7 +362,7 @@ export default {
 					id: this.communityPosts.length + 1,
 					avatar: 'https://ai-public.mastergo.com/ai/img_res/a80f1e0b5ba3d38b3dccce7abc7d0323.jpg',
 					username: this.displayName || '我',
-					time: '刚刚',
+					time: this.formatBlogTime(b.created_at),
 					content,
 					image: '',
 					video: '',
@@ -1247,7 +1267,7 @@ export default {
 .community-avatar { width:40px; height:40px; border-radius:50%; }
 .community-user-detail { margin-left:10px; }
 .community-username { font-size:14px; font-weight:bold; color:#333; }
-.community-post-time { font-size:12px; color:#999; }
+.community-post-time { font-size:11px; color:#9aa0a6; }
 .community-post-content { margin-bottom:10px; }
 .community-post-text { font-size:14px; color:#333; margin-bottom:10px; line-height:1.5; display:block; }
 .community-post-image { width:100%; height:200px; border-radius:5px; margin-top:10px; }

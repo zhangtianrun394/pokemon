@@ -179,11 +179,12 @@ export default {
         const row = await createBlogPost({ uid, title, content, accessToken })
         // 回写本地 newPost，便于首页社区页即时显示
         const displayName = (uni.getStorageSync('user') || {}).name || '我'
+        const timeStr = (() => { try { const d = new Date(row && row.created_at ? row.created_at : Date.now()); if (!d || isNaN(d)) return '刚刚'; const pad=n=>String(n).padStart(2,'0'); return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())} ${pad(d.getHours())}` } catch(e){ return '刚刚' } })()
         const newPost = {
           id: row.blog_id || Date.now(),
           avatar: 'https://ai-public.mastergo.com/ai/img_res/a80f1e0b5ba3d38b3dccce7abc7d0323.jpg',
           username: displayName,
-          time: '刚刚',
+          time: timeStr,
           content,
           image: this.selectedImage,
           video: this.selectedVideo,
