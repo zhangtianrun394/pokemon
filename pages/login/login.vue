@@ -144,6 +144,7 @@
 </template>
 
 <script>
+import { createClient } from '@supabase/supabase-js'
 	export default {
 		data() {
 			return {
@@ -244,43 +245,29 @@
 				}
 			},
 			handleRegister: async function() {
-				const { username, password, confirmPassword } = this.registerForm
-				if (!username || !password || !confirmPassword) { uni.showToast({ title: '请填写完整信息', icon: 'none' }); return }
+				const { username, email, password, confirmPassword } = this.registerForm
+				if (!username || !email || !password || !confirmPassword) { uni.showToast({ title: '请填写完整信息', icon: 'none' }); return }
+				if (!email.includes('@')) { uni.showToast({ title: '请输入有效邮箱', icon: 'none' }); return }
 				if (password !== confirmPassword) { uni.showToast({ title: '两次密码不一致', icon: 'none' }); return }
 				try {
 					await new Promise((resolve)=>{ this.bootstrapEnv(); setTimeout(resolve, 0) })
 					const base = (this.supabaseUrl || '').replace(/\/$/, '')
 					const key = this.supabaseKey
 					if (!base || !key) { uni.showToast({ title: '后端配置缺失', icon: 'none' }); return }
-					const headers = { 'apikey': key, 'Authorization': `Bearer ${key}`, 'Accept': 'application/json' }
-					// 先检查重名
-					const checkUrl = `${base}/rest/v1/Users?select=name&name=eq.${encodeURIComponent(username)}&limit=1`
-					const checkRes = await new Promise((resolve, reject) => {
-						uni.request({ url: checkUrl, method: 'GET', header: headers, timeout: 10000, success: resolve, fail: reject })
-					})
-					if (checkRes.statusCode >= 200 && checkRes.statusCode < 300) {
-						const exists = Array.isArray(checkRes.data) && checkRes.data.length > 0
-						if (exists) { uni.showToast({ title: '用户名已存在', icon: 'none' }); return }
-					} else { uni.showToast({ title: '重名检查失败: HTTP ' + checkRes.statusCode, icon: 'none' }); return }
-
-					// 通过检查后再插入
-					const createUrl = `${base}/rest/v1/Users`
-					const createHeaders = { ...headers, 'Content-Type': 'application/json', 'Prefer': 'return=representation' }
-					const body = { name: username, password, created_time: new Date().toISOString() }
-					const res = await new Promise((resolve, reject) => {
-						uni.request({ url: createUrl, method: 'POST', header: createHeaders, data: body, timeout: 12000, success: resolve, fail: reject })
-					})
-					if (res.statusCode >= 200 && res.statusCode < 300) {
-						uni.showToast({ title: '注册成功', icon: 'none' })
-						setTimeout(()=>{ uni.reLaunch({ url: '/pages/index/index?page=profile' }) }, 500)
+					const supabase = createClient(base, key)
+					const { data, error } = await supabase.auth.signUp({ email, password, options: { data: { name: username } } })
+					if (error) { uni.showToast({ title: '注册失败: ' + error.message, icon: 'none' }); return }
+					if (data?.user) {
+						uni.showToast({ title: '注册成功，请查收邮箱确认链接', icon: 'none' })
+						setTimeout(()=>{ uni.switchTab({ url: '/pages/index/index' }) }, 800)
 					} else {
-						const msg = (res.data && res.data.message) ? res.data.message : ('HTTP ' + res.statusCode)
-						uni.showToast({ title: '注册失败: ' + msg, icon: 'none' })
+						uni.showToast({ title: '注册成功', icon: 'none' })
+						setTimeout(()=>{ uni.switchTab({ url: '/pages/index/index' }) }, 800)
 					}
 				} catch (e) {
 					uni.showToast({ title: '网络异常: ' + (e.errMsg || e.message || e), icon: 'none' })
 				}
-			},
+			}
 			forgotPassword() {
 				uni.showToast({
 					title: '忘记密码功能开发中...',

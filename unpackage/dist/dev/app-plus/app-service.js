@@ -39,7 +39,7 @@ if (uni.restoreGlobal) {
       console[type].apply(console, [...args, filename]);
     }
   }
-  var define_import_meta_env_default$3 = { VITE_SUPABASE_URL: "http://192.168.1.144:8000", VITE_SUPABASE_ANON_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyAgCiAgICAicm9sZSI6ICJhbm9uIiwKICAgICJpc3MiOiAic3VwYWJhc2UtZGVtbyIsCiAgICAiaWF0IjogMTY0MTc2OTIwMCwKICAgICJleHAiOiAxNzk5NTM1NjAwCn0.dc_X5iR_VP_qT0zsiyj_I_OZ2T9FtRU2BBNWN8Bu4GE", VITE_CJS_IGNORE_WARNING: "true", VITE_ROOT_DIR: "C:/Users/j/Desktop/宝可梦图鉴 - 副本 (2)", VITE_USER_NODE_ENV: "development", BASE_URL: "/", MODE: "development", DEV: true, PROD: false, SSR: false };
+  var define_import_meta_env_default$3 = { VITE_SUPABASE_URL: "https://ppyigzumhwpvmkfxrjpv.supabase.co", VITE_SUPABASE_ANON_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBweWlnenVtaHdwdm1rZnhyanB2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA4NTY5ODYsImV4cCI6MjA3NjQzMjk4Nn0.7rUQY_prT3l8KSKuaEFalU3lp2yaj6xjFLSn8_KXfAE", VITE_CJS_IGNORE_WARNING: "true", VITE_ROOT_DIR: "C:/Users/j/Desktop/宝可梦图鉴 - 副本 (2)", VITE_USER_NODE_ENV: "development", BASE_URL: "/", MODE: "development", DEV: true, PROD: false, SSR: false };
   let cachedUrl = "";
   let cachedKey = "";
   function decodeBase64(str) {
@@ -514,7 +514,7 @@ if (uni.restoreGlobal) {
     }
     return target;
   };
-  const _sfc_main$6 = {
+  const _sfc_main$8 = {
     data() {
       return {
         isLoading: true,
@@ -628,8 +628,8 @@ if (uni.restoreGlobal) {
           uni.request({ url: "/static/app-config.json", method: "GET", success: resolve, fail: resolve });
         });
         const appCfg = resCfg && resCfg.data ? resCfg.data : {};
-        const baseRaw = "" ? "" : "http://192.168.1.144:8000";
-        const keyRaw = "" ? "" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyAgCiAgICAicm9sZSI6ICJhbm9uIiwKICAgICJpc3MiOiAic3VwYWJhc2UtZGVtbyIsCiAgICAiaWF0IjogMTY0MTc2OTIwMCwKICAgICJleHAiOiAxNzk5NTM1NjAwCn0.dc_X5iR_VP_qT0zsiyj_I_OZ2T9FtRU2BBNWN8Bu4GE";
+        const baseRaw = "" ? "" : "https://ppyigzumhwpvmkfxrjpv.supabase.co";
+        const keyRaw = "" ? "" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBweWlnenVtaHdwdm1rZnhyanB2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA4NTY5ODYsImV4cCI6MjA3NjQzMjk4Nn0.7rUQY_prT3l8KSKuaEFalU3lp2yaj6xjFLSn8_KXfAE";
         if (baseRaw && keyRaw) {
           setSupabaseConfig(String(baseRaw), String(keyRaw));
         }
@@ -644,7 +644,7 @@ if (uni.restoreGlobal) {
         }
         await this.fetchPokemons();
       } catch (e) {
-        formatAppLog("error", "at pages/index/index.vue:343", "首屏加载失败", e);
+        formatAppLog("error", "at pages/index/index.vue:347", "首屏加载失败", e);
         uni.showModal({
           title: "首屏加载失败",
           content: e && e.message ? String(e.message).slice(0, 120) : "未知错误",
@@ -767,7 +767,7 @@ if (uni.restoreGlobal) {
       async fetchPokemons() {
         try {
           const resp = await fetchAllForHomeJunction();
-          formatAppLog("log", "at pages/index/index.vue:434", "诊断信息 - formsCount:", resp == null ? void 0 : resp.formsCount, "maxFormId:", resp == null ? void 0 : resp.maxFormId);
+          formatAppLog("log", "at pages/index/index.vue:438", "诊断信息 - formsCount:", resp == null ? void 0 : resp.formsCount, "maxFormId:", resp == null ? void 0 : resp.maxFormId);
           if (resp == null ? void 0 : resp.maxFormId) {
             uni.showToast({
               title: `加载${resp.formsCount}条，最大ID:${resp.maxFormId}`,
@@ -805,7 +805,7 @@ if (uni.restoreGlobal) {
             uni.showToast({ title: "未加载到数据（0 条）", icon: "none", duration: 2500 });
           }
         } catch (err) {
-          formatAppLog("error", "at pages/index/index.vue:466", "加载宝可梦失败", err);
+          formatAppLog("error", "at pages/index/index.vue:470", "加载宝可梦失败", err);
           const msg = err && err.message ? String(err.message).slice(0, 120) : "";
           uni.showModal({
             title: "数据加载失败",
@@ -938,6 +938,9 @@ if (uni.restoreGlobal) {
           }
           uni.navigateTo({ url: "/pages/login/index" });
           return;
+        } else if (page === "moves") {
+          uni.navigateTo({ url: "/pages/moves/moves" });
+          return;
         }
         this.activePage = page;
       },
@@ -971,7 +974,8 @@ if (uni.restoreGlobal) {
       }
     }
   };
-  function _sfc_render$5(_ctx, _cache, $props, $setup, $data, $options) {
+  function _sfc_render$7(_ctx, _cache, $props, $setup, $data, $options) {
+    const _component_ai_chat_assistant = vue.resolveComponent("ai-chat-assistant");
     return vue.openBlock(), vue.createElementBlock("view", { class: "container" }, [
       vue.createCommentVNode(" 加载界面 "),
       vue.createElementVNode(
@@ -985,6 +989,8 @@ if (uni.restoreGlobal) {
         2
         /* CLASS */
       ),
+      vue.createCommentVNode(" AI聊天助手组件（仅在图鉴页面显示） "),
+      $data.activePage === "pokedex" ? (vue.openBlock(), vue.createBlock(_component_ai_chat_assistant, { key: 0 })) : vue.createCommentVNode("v-if", true),
       vue.createCommentVNode(" 背景图案 "),
       vue.createElementVNode("view", {
         class: "background-pattern",
@@ -999,7 +1005,7 @@ if (uni.restoreGlobal) {
       ]),
       vue.createCommentVNode(" 头部（仅图鉴页显示） "),
       $data.activePage !== "community" ? (vue.openBlock(), vue.createElementBlock("view", {
-        key: 0,
+        key: 1,
         class: "header"
       }, [
         vue.createElementVNode("text", { class: "title" }, "宝可梦图鉴"),
@@ -1016,7 +1022,7 @@ if (uni.restoreGlobal) {
       ])) : vue.createCommentVNode("v-if", true),
       vue.createCommentVNode(" 搜索栏（仅图鉴与招式与特性页显示） "),
       $data.activePage === "pokedex" || $data.activePage === "moves" ? (vue.openBlock(), vue.createElementBlock("view", {
-        key: 1,
+        key: 2,
         class: "search-bar"
       }, [
         vue.createElementVNode("view", { class: "search-container" }, [
@@ -1046,7 +1052,7 @@ if (uni.restoreGlobal) {
       ])) : vue.createCommentVNode("v-if", true),
       vue.createCommentVNode(" 排序选项（仅图鉴页显示） "),
       $data.activePage !== "community" ? (vue.openBlock(), vue.createElementBlock("view", {
-        key: 2,
+        key: 3,
         class: "sort-options"
       }, [
         vue.createElementVNode("text", null, "属性"),
@@ -1063,7 +1069,7 @@ if (uni.restoreGlobal) {
       ])) : vue.createCommentVNode("v-if", true),
       vue.createCommentVNode(" 宝可梦网格 "),
       $data.activePage === "pokedex" ? (vue.openBlock(), vue.createElementBlock("view", {
-        key: 3,
+        key: 4,
         class: "pokemon-grid"
       }, [
         (vue.openBlock(true), vue.createElementBlock(
@@ -1133,7 +1139,7 @@ if (uni.restoreGlobal) {
         ))
       ])) : $data.activePage === "community" ? (vue.openBlock(), vue.createElementBlock(
         vue.Fragment,
-        { key: 4 },
+        { key: 5 },
         [
           vue.createCommentVNode(" 社区页面（嵌入首页，保留底部导航） "),
           vue.createElementVNode("view", { class: "community-page" }, [
@@ -1434,7 +1440,7 @@ if (uni.restoreGlobal) {
         /* STABLE_FRAGMENT, DEV_ROOT_FRAGMENT */
       )) : $data.activePage === "profile" ? (vue.openBlock(), vue.createElementBlock(
         vue.Fragment,
-        { key: 5 },
+        { key: 6 },
         [
           vue.createCommentVNode(" 我的 - 用户详情视图（嵌入首页，保留底部导航） "),
           vue.createElementVNode("view", { class: "profile-container" }, [
@@ -1508,8 +1514,8 @@ if (uni.restoreGlobal) {
       ])
     ]);
   }
-  const PagesIndexIndex = /* @__PURE__ */ _export_sfc(_sfc_main$6, [["render", _sfc_render$5], ["__scopeId", "data-v-1cf27b2a"], ["__file", "C:/Users/j/Desktop/宝可梦图鉴 - 副本 (2)/pages/index/index.vue"]]);
-  const _sfc_main$5 = {
+  const PagesIndexIndex = /* @__PURE__ */ _export_sfc(_sfc_main$8, [["render", _sfc_render$7], ["__scopeId", "data-v-1cf27b2a"], ["__file", "C:/Users/j/Desktop/宝可梦图鉴 - 副本 (2)/pages/index/index.vue"]]);
+  const _sfc_main$7 = {
     data() {
       return {
         displayUrl: "",
@@ -1527,9 +1533,9 @@ if (uni.restoreGlobal) {
     methods: {
       async initDisplay() {
         try {
-          const url = "" ? "" : "http://192.168.1.144:8000";
+          const url = "" ? "" : "https://ppyigzumhwpvmkfxrjpv.supabase.co";
           this.displayUrl = url || "（空）";
-          const key = "" ? "" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyAgCiAgICAicm9sZSI6ICJhbm9uIiwKICAgICJpc3MiOiAic3VwYWJhc2UtZGVtbyIsCiAgICAiaWF0IjogMTY0MTc2OTIwMCwKICAgICJleHAiOiAxNzk5NTM1NjAwCn0.dc_X5iR_VP_qT0zsiyj_I_OZ2T9FtRU2BBNWN8Bu4GE";
+          const key = "" ? "" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBweWlnenVtaHdwdm1rZnhyanB2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA4NTY5ODYsImV4cCI6MjA3NjQzMjk4Nn0.7rUQY_prT3l8KSKuaEFalU3lp2yaj6xjFLSn8_KXfAE";
           this.anonKeyHead = key ? key.slice(0, 12) : "（空）";
           if (!url || !key)
             ;
@@ -1545,8 +1551,8 @@ if (uni.restoreGlobal) {
             uni.request({ url: "/static/app-config.json", method: "GET", success: resolve, fail: resolve });
           });
           const appCfg = resCfg && resCfg.data ? resCfg.data : {};
-          const baseRaw = "" ? "" : "http://192.168.1.144:8000";
-          const keyRaw = "" ? "" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyAgCiAgICAicm9sZSI6ICJhbm9uIiwKICAgICJpc3MiOiAic3VwYWJhc2UtZGVtbyIsCiAgICAiaWF0IjogMTY0MTc2OTIwMCwKICAgICJleHAiOiAxNzk5NTM1NjAwCn0.dc_X5iR_VP_qT0zsiyj_I_OZ2T9FtRU2BBNWN8Bu4GE";
+          const baseRaw = "" ? "" : "https://ppyigzumhwpvmkfxrjpv.supabase.co";
+          const keyRaw = "" ? "" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBweWlnenVtaHdwdm1rZnhyanB2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA4NTY5ODYsImV4cCI6MjA3NjQzMjk4Nn0.7rUQY_prT3l8KSKuaEFalU3lp2yaj6xjFLSn8_KXfAE";
           if (baseRaw && keyRaw)
             setSupabaseConfig(String(baseRaw), String(keyRaw));
         } catch (e) {
@@ -1560,8 +1566,8 @@ if (uni.restoreGlobal) {
             uni.request({ url: "/static/app-config.json", method: "GET", success: resolve, fail: resolve });
           });
           const appCfg = resCfg && resCfg.data ? resCfg.data : {};
-          const baseRaw = "" ? "" : "http://192.168.1.144:8000";
-          const keyRaw = "" ? "" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyAgCiAgICAicm9sZSI6ICJhbm9uIiwKICAgICJpc3MiOiAic3VwYWJhc2UtZGVtbyIsCiAgICAiaWF0IjogMTY0MTc2OTIwMCwKICAgICJleHAiOiAxNzk5NTM1NjAwCn0.dc_X5iR_VP_qT0zsiyj_I_OZ2T9FtRU2BBNWN8Bu4GE";
+          const baseRaw = "" ? "" : "https://ppyigzumhwpvmkfxrjpv.supabase.co";
+          const keyRaw = "" ? "" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBweWlnenVtaHdwdm1rZnhyanB2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA4NTY5ODYsImV4cCI6MjA3NjQzMjk4Nn0.7rUQY_prT3l8KSKuaEFalU3lp2yaj6xjFLSn8_KXfAE";
           const base = (baseRaw || "").replace(/\/$/, "");
           const url = `${base}/rest/v1/pokemons?select=*&limit=1`;
           const res = await new Promise((resolve, reject) => {
@@ -1591,8 +1597,8 @@ if (uni.restoreGlobal) {
             uni.request({ url: "/static/app-config.json", method: "GET", success: resolve, fail: resolve });
           });
           const appCfg = resCfg && resCfg.data ? resCfg.data : {};
-          const baseRaw = "" ? "" : "http://192.168.1.144:8000";
-          const keyRaw = "" ? "" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyAgCiAgICAicm9sZSI6ICJhbm9uIiwKICAgICJpc3MiOiAic3VwYWJhc2UtZGVtbyIsCiAgICAiaWF0IjogMTY0MTc2OTIwMCwKICAgICJleHAiOiAxNzk5NTM1NjAwCn0.dc_X5iR_VP_qT0zsiyj_I_OZ2T9FtRU2BBNWN8Bu4GE";
+          const baseRaw = "" ? "" : "https://ppyigzumhwpvmkfxrjpv.supabase.co";
+          const keyRaw = "" ? "" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBweWlnenVtaHdwdm1rZnhyanB2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA4NTY5ODYsImV4cCI6MjA3NjQzMjk4Nn0.7rUQY_prT3l8KSKuaEFalU3lp2yaj6xjFLSn8_KXfAE";
           if (baseRaw && keyRaw)
             setSupabaseConfig(String(baseRaw), String(keyRaw));
         } catch (e) {
@@ -1616,7 +1622,7 @@ if (uni.restoreGlobal) {
       }
     }
   };
-  function _sfc_render$4(_ctx, _cache, $props, $setup, $data, $options) {
+  function _sfc_render$6(_ctx, _cache, $props, $setup, $data, $options) {
     return vue.openBlock(), vue.createElementBlock("view", { style: { "padding": "16px", "color": "#fff", "background": "#1D3557", "min-height": "100vh" } }, [
       vue.createElementVNode("view", { style: { "margin-bottom": "12px", "font-size": "18px", "font-weight": "bold" } }, "配置自检"),
       vue.createElementVNode("view", { style: { "background": "rgba(255,255,255,0.1)", "padding": "12px", "border-radius": "8px", "margin-bottom": "12px" } }, [
@@ -1675,14 +1681,14 @@ if (uni.restoreGlobal) {
       vue.createElementVNode("view", { style: { "margin-top": "16px", "font-size": "12px", "color": "#ddd" } }, "提示：如果 URL/Key 为空或探针失败，请检查 .env、static/app-config.json、网络与 RLS 策略。")
     ]);
   }
-  const PagesDebugConfig = /* @__PURE__ */ _export_sfc(_sfc_main$5, [["render", _sfc_render$4], ["__scopeId", "data-v-9363233c"], ["__file", "C:/Users/j/Desktop/宝可梦图鉴 - 副本 (2)/pages/debug/config.vue"]]);
+  const PagesDebugConfig = /* @__PURE__ */ _export_sfc(_sfc_main$7, [["render", _sfc_render$6], ["__scopeId", "data-v-9363233c"], ["__file", "C:/Users/j/Desktop/宝可梦图鉴 - 副本 (2)/pages/debug/config.vue"]]);
   function getImageUrl(imageName) {
     if (!imageName)
       return "";
     return `/static/assets/pokemons_image/official/${imageName}`;
   }
-  var define_import_meta_env_default$2 = { VITE_SUPABASE_URL: "http://192.168.1.144:8000", VITE_SUPABASE_ANON_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyAgCiAgICAicm9sZSI6ICJhbm9uIiwKICAgICJpc3MiOiAic3VwYWJhc2UtZGVtbyIsCiAgICAiaWF0IjogMTY0MTc2OTIwMCwKICAgICJleHAiOiAxNzk5NTM1NjAwCn0.dc_X5iR_VP_qT0zsiyj_I_OZ2T9FtRU2BBNWN8Bu4GE", VITE_CJS_IGNORE_WARNING: "true", VITE_ROOT_DIR: "C:/Users/j/Desktop/宝可梦图鉴 - 副本 (2)", VITE_USER_NODE_ENV: "development", BASE_URL: "/", MODE: "development", DEV: true, PROD: false, SSR: false };
-  const _sfc_main$4 = {
+  var define_import_meta_env_default$2 = { VITE_SUPABASE_URL: "https://ppyigzumhwpvmkfxrjpv.supabase.co", VITE_SUPABASE_ANON_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBweWlnenVtaHdwdm1rZnhyanB2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA4NTY5ODYsImV4cCI6MjA3NjQzMjk4Nn0.7rUQY_prT3l8KSKuaEFalU3lp2yaj6xjFLSn8_KXfAE", VITE_CJS_IGNORE_WARNING: "true", VITE_ROOT_DIR: "C:/Users/j/Desktop/宝可梦图鉴 - 副本 (2)", VITE_USER_NODE_ENV: "development", BASE_URL: "/", MODE: "development", DEV: true, PROD: false, SSR: false };
+  const _sfc_main$6 = {
     data() {
       return {
         loading: true,
@@ -1882,7 +1888,7 @@ if (uni.restoreGlobal) {
       }
     }
   };
-  function _sfc_render$3(_ctx, _cache, $props, $setup, $data, $options) {
+  function _sfc_render$5(_ctx, _cache, $props, $setup, $data, $options) {
     return vue.openBlock(), vue.createElementBlock(
       "div",
       {
@@ -2153,9 +2159,9 @@ if (uni.restoreGlobal) {
       /* STYLE */
     );
   }
-  const PagesDetailDetail = /* @__PURE__ */ _export_sfc(_sfc_main$4, [["render", _sfc_render$3], ["__file", "C:/Users/j/Desktop/宝可梦图鉴 - 副本 (2)/pages/detail/detail.vue"]]);
-  var define_import_meta_env_default$1 = { VITE_SUPABASE_URL: "http://192.168.1.144:8000", VITE_SUPABASE_ANON_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyAgCiAgICAicm9sZSI6ICJhbm9uIiwKICAgICJpc3MiOiAic3VwYWJhc2UtZGVtbyIsCiAgICAiaWF0IjogMTY0MTc2OTIwMCwKICAgICJleHAiOiAxNzk5NTM1NjAwCn0.dc_X5iR_VP_qT0zsiyj_I_OZ2T9FtRU2BBNWN8Bu4GE", VITE_CJS_IGNORE_WARNING: "true", VITE_ROOT_DIR: "C:/Users/j/Desktop/宝可梦图鉴 - 副本 (2)", VITE_USER_NODE_ENV: "development", BASE_URL: "/", MODE: "development", DEV: true, PROD: false, SSR: false };
-  const _sfc_main$3 = {
+  const PagesDetailDetail = /* @__PURE__ */ _export_sfc(_sfc_main$6, [["render", _sfc_render$5], ["__file", "C:/Users/j/Desktop/宝可梦图鉴 - 副本 (2)/pages/detail/detail.vue"]]);
+  var define_import_meta_env_default$1 = { VITE_SUPABASE_URL: "https://ppyigzumhwpvmkfxrjpv.supabase.co", VITE_SUPABASE_ANON_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBweWlnenVtaHdwdm1rZnhyanB2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA4NTY5ODYsImV4cCI6MjA3NjQzMjk4Nn0.7rUQY_prT3l8KSKuaEFalU3lp2yaj6xjFLSn8_KXfAE", VITE_CJS_IGNORE_WARNING: "true", VITE_ROOT_DIR: "C:/Users/j/Desktop/宝可梦图鉴 - 副本 (2)", VITE_USER_NODE_ENV: "development", BASE_URL: "/", MODE: "development", DEV: true, PROD: false, SSR: false };
+  const _sfc_main$5 = {
     data() {
       return {
         isLogin: true,
@@ -2212,8 +2218,8 @@ if (uni.restoreGlobal) {
         }
       },
       goBack() {
-        uni.switchTab({
-          url: "/pages/index/index"
+        uni.navigateBack({
+          delta: 1
         });
       },
       switchToLogin() {
@@ -2346,7 +2352,7 @@ if (uni.restoreGlobal) {
       }
     }
   };
-  function _sfc_render$2(_ctx, _cache, $props, $setup, $data, $options) {
+  function _sfc_render$4(_ctx, _cache, $props, $setup, $data, $options) {
     return vue.openBlock(), vue.createElementBlock("view", { class: "login-container" }, [
       vue.createCommentVNode(" 状态栏 "),
       vue.createElementVNode("view", { class: "status-bar" }, [
@@ -2585,8 +2591,8 @@ if (uni.restoreGlobal) {
       ])
     ]);
   }
-  const PagesLoginIndex = /* @__PURE__ */ _export_sfc(_sfc_main$3, [["render", _sfc_render$2], ["__file", "C:/Users/j/Desktop/宝可梦图鉴 - 副本 (2)/pages/login/index.vue"]]);
-  const _sfc_main$2 = {
+  const PagesLoginIndex = /* @__PURE__ */ _export_sfc(_sfc_main$5, [["render", _sfc_render$4], ["__file", "C:/Users/j/Desktop/宝可梦图鉴 - 副本 (2)/pages/login/index.vue"]]);
+  const _sfc_main$4 = {
     data() {
       return {
         postTitle: "",
@@ -2688,7 +2694,7 @@ if (uni.restoreGlobal) {
       }
     }
   };
-  function _sfc_render$1(_ctx, _cache, $props, $setup, $data, $options) {
+  function _sfc_render$3(_ctx, _cache, $props, $setup, $data, $options) {
     return vue.openBlock(), vue.createElementBlock("view", { class: "container" }, [
       vue.createCommentVNode(" 顶部导航栏 "),
       vue.createElementVNode("view", { class: "header" }, [
@@ -2868,9 +2874,9 @@ if (uni.restoreGlobal) {
       ])) : vue.createCommentVNode("v-if", true)
     ]);
   }
-  const PagesCommunityCreate = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["render", _sfc_render$1], ["__scopeId", "data-v-a2e5626f"], ["__file", "C:/Users/j/Desktop/宝可梦图鉴 - 副本 (2)/pages/community/create.vue"]]);
-  var define_import_meta_env_default = { VITE_SUPABASE_URL: "http://192.168.1.144:8000", VITE_SUPABASE_ANON_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyAgCiAgICAicm9sZSI6ICJhbm9uIiwKICAgICJpc3MiOiAic3VwYWJhc2UtZGVtbyIsCiAgICAiaWF0IjogMTY0MTc2OTIwMCwKICAgICJleHAiOiAxNzk5NTM1NjAwCn0.dc_X5iR_VP_qT0zsiyj_I_OZ2T9FtRU2BBNWN8Bu4GE", VITE_CJS_IGNORE_WARNING: "true", VITE_ROOT_DIR: "C:/Users/j/Desktop/宝可梦图鉴 - 副本 (2)", VITE_USER_NODE_ENV: "development", BASE_URL: "/", MODE: "development", DEV: true, PROD: false, SSR: false };
-  const _sfc_main$1 = {
+  const PagesCommunityCreate = /* @__PURE__ */ _export_sfc(_sfc_main$4, [["render", _sfc_render$3], ["__scopeId", "data-v-a2e5626f"], ["__file", "C:/Users/j/Desktop/宝可梦图鉴 - 副本 (2)/pages/community/create.vue"]]);
+  var define_import_meta_env_default = { VITE_SUPABASE_URL: "https://ppyigzumhwpvmkfxrjpv.supabase.co", VITE_SUPABASE_ANON_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBweWlnenVtaHdwdm1rZnhyanB2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA4NTY5ODYsImV4cCI6MjA3NjQzMjk4Nn0.7rUQY_prT3l8KSKuaEFalU3lp2yaj6xjFLSn8_KXfAE", VITE_CJS_IGNORE_WARNING: "true", VITE_ROOT_DIR: "C:/Users/j/Desktop/宝可梦图鉴 - 副本 (2)", VITE_USER_NODE_ENV: "development", BASE_URL: "/", MODE: "development", DEV: true, PROD: false, SSR: false };
+  const _sfc_main$3 = {
     data() {
       return {
         loading: true,
@@ -3029,7 +3035,7 @@ if (uni.restoreGlobal) {
       }
     }
   };
-  function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
+  function _sfc_render$2(_ctx, _cache, $props, $setup, $data, $options) {
     return vue.openBlock(), vue.createElementBlock("view", { class: "container" }, [
       vue.createElementVNode("view", { class: "header" }, [
         vue.createElementVNode("text", { class: "h1" }, "宝可梦百科"),
@@ -3130,14 +3136,718 @@ if (uni.restoreGlobal) {
       )
     ]);
   }
-  const PagesWikiWiki = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["render", _sfc_render], ["__scopeId", "data-v-0ab94934"], ["__file", "C:/Users/j/Desktop/宝可梦图鉴 - 副本 (2)/pages/wiki/wiki.vue"]]);
+  const PagesWikiWiki = /* @__PURE__ */ _export_sfc(_sfc_main$3, [["render", _sfc_render$2], ["__scopeId", "data-v-0ab94934"], ["__file", "C:/Users/j/Desktop/宝可梦图鉴 - 副本 (2)/pages/wiki/wiki.vue"]]);
+  const _sfc_main$2 = {
+    data() {
+      return {
+        searchKeyword: "",
+        isAbilityList: false,
+        // 是否显示特性列表
+        sortAscending: true,
+        // 排序方向：true为升序，false为降序
+        activePage: "moves",
+        // 当前激活的页面
+        navItems: [
+          { page: "pokedex", label: "图鉴" },
+          { page: "community", label: "社区" },
+          { page: "moves", label: "招式与特性" },
+          { page: "profile", label: "我的" }
+        ],
+        abilityList: [
+          {
+            id: 1,
+            name: "茂盛",
+            type: "草系",
+            shortEffect: "HP减少时草属性招式威力提升",
+            fullEffect: "当宝可梦的HP减少到1/3以下时，草属性招式的威力会提升50%。这个特性在关键时刻能够逆转战局，特别适合草属性宝可梦使用。",
+            expanded: false
+          },
+          {
+            id: 2,
+            name: "猛火",
+            type: "火系",
+            shortEffect: "HP减少时火属性招式威力提升",
+            fullEffect: "当宝可梦的HP减少到1/3以下时，火属性招式的威力会提升50%。这个特性让火属性宝可梦在危急时刻能够爆发出更强的力量。",
+            expanded: false
+          },
+          {
+            id: 3,
+            name: "激流",
+            type: "水系",
+            shortEffect: "HP减少时水属性招式威力提升",
+            fullEffect: "当宝可梦的HP减少到1/3以下时，水属性招式的威力会提升50%。这个特性让水系宝可梦在逆境中能够发挥更强的战斗力。",
+            expanded: false
+          },
+          {
+            id: 4,
+            name: "静电",
+            type: "电系",
+            shortEffect: "接触类招式可能让对手麻痹",
+            fullEffect: "当对手使用接触类招式攻击时，有30%的几率让对手陷入麻痹状态。麻痹状态会降低对手的速度，并有可能让对手无法行动。",
+            expanded: false
+          },
+          {
+            id: 5,
+            name: "坚硬",
+            type: "防御",
+            shortEffect: "不会被一击必杀招式击败",
+            fullEffect: "拥有坚硬特性的宝可梦不会被一击必杀招式（如绝对零度、地裂等）击败。这个特性提供了重要的生存保障。",
+            expanded: false
+          },
+          {
+            id: 6,
+            name: "压迫感",
+            type: "特殊",
+            shortEffect: "对手使用招式时消耗更多PP",
+            fullEffect: "对手使用招式时，PP消耗量会加倍。这个特性能够有效限制对手的招式使用次数，在持久战中具有优势。",
+            pokemon: "急冻鸟、闪电鸟、火焰鸟等",
+            trigger: "对手使用招式时",
+            battleEffect: "对手招式PP消耗加倍",
+            expanded: false
+          },
+          {
+            id: 7,
+            name: "技术高手",
+            type: "攻击",
+            shortEffect: "低威力招式威力提升",
+            fullEffect: "使用威力60或以下的招式时，威力会提升50%。这个特性让低威力招式变得更有价值，适合搭配快速连击的招式。",
+            pokemon: "飞天螳螂、巨钳螳螂等",
+            trigger: "使用威力≤60的招式时",
+            battleEffect: "低威力招式威力提升50%",
+            expanded: false
+          },
+          {
+            id: 8,
+            name: "沙隐",
+            type: "天气",
+            shortEffect: "沙暴天气下闪避率提升",
+            fullEffect: "在沙暴天气下，闪避率会提升20%。同时不会受到沙暴天气的伤害。这个特性在沙暴队中非常有用。",
+            pokemon: "穿山鼠、穿山王等",
+            trigger: "沙暴天气下",
+            battleEffect: "闪避率提升20%，免疫沙暴伤害",
+            expanded: false
+          },
+          {
+            id: 9,
+            name: "毒疗",
+            type: "恢复",
+            shortEffect: "中毒时每回合恢复HP",
+            fullEffect: "中毒状态下，每回合结束时恢复最大HP的1/8。这个特性将中毒状态转化为持续恢复效果，在特定战术中非常强大。",
+            pokemon: "蘑蘑菇、斗笠菇等",
+            trigger: "中毒状态下每回合结束",
+            battleEffect: "每回合恢复1/8最大HP",
+            expanded: false
+          }
+        ],
+        moveList: [
+          {
+            id: 1,
+            name: "拍击",
+            power: "40",
+            accuracy: "100%",
+            pp: "35",
+            priority: "0",
+            type: "一般",
+            category: "物理",
+            expanded: false
+          },
+          {
+            id: 2,
+            name: "空手劈",
+            power: "50",
+            accuracy: "100%",
+            pp: "25",
+            priority: "0",
+            type: "格斗",
+            category: "物理",
+            expanded: false
+          },
+          {
+            id: 3,
+            name: "火焰拳",
+            power: "75",
+            accuracy: "100%",
+            pp: "15",
+            priority: "0",
+            type: "火",
+            category: "物理",
+            expanded: false
+          },
+          {
+            id: 4,
+            name: "喷射火焰",
+            power: "90",
+            accuracy: "100%",
+            pp: "15",
+            priority: "0",
+            type: "火",
+            category: "特殊",
+            expanded: false
+          },
+          {
+            id: 5,
+            name: "雷电",
+            power: "100",
+            accuracy: "70%",
+            pp: "10",
+            priority: "0",
+            type: "电",
+            category: "特殊",
+            expanded: false
+          },
+          {
+            id: 6,
+            name: "水炮",
+            power: "110",
+            accuracy: "80%",
+            pp: "5",
+            priority: "0",
+            type: "水",
+            category: "特殊",
+            expanded: false
+          },
+          {
+            id: 7,
+            name: "生长",
+            power: "-",
+            accuracy: "-",
+            pp: "40",
+            priority: "0",
+            type: "草",
+            category: "变化",
+            expanded: false
+          },
+          {
+            id: 8,
+            name: "毒针",
+            power: "15",
+            accuracy: "100%",
+            pp: "35",
+            priority: "0",
+            type: "毒",
+            category: "物理",
+            expanded: false
+          },
+          {
+            id: 9,
+            name: "冥想",
+            power: "-",
+            accuracy: "-",
+            pp: "20",
+            priority: "0",
+            type: "超能力",
+            category: "变化",
+            expanded: false
+          }
+        ]
+      };
+    },
+    computed: {
+      filteredAbilityList() {
+        let list;
+        if (!this.searchKeyword) {
+          list = [...this.abilityList];
+        } else {
+          const keyword = this.searchKeyword.toLowerCase();
+          list = this.abilityList.filter(
+            (item) => item.name.toLowerCase().includes(keyword) || item.type.toLowerCase().includes(keyword) || item.shortEffect.toLowerCase().includes(keyword) || item.fullEffect.toLowerCase().includes(keyword)
+          );
+        }
+        return list.slice().sort((a, b) => {
+          if (this.sortAscending) {
+            return a.id - b.id;
+          } else {
+            return b.id - a.id;
+          }
+        });
+      },
+      filteredMoveList() {
+        let list;
+        if (!this.searchKeyword) {
+          list = [...this.moveList];
+        } else {
+          const keyword = this.searchKeyword.toLowerCase();
+          list = this.moveList.filter(
+            (item) => item.name.toLowerCase().includes(keyword) || item.type.toLowerCase().includes(keyword) || item.category.toLowerCase().includes(keyword)
+          );
+        }
+        return list.slice().sort((a, b) => {
+          if (this.sortAscending) {
+            return a.id - b.id;
+          } else {
+            return b.id - a.id;
+          }
+        });
+      }
+    },
+    methods: {
+      toggleMenu() {
+        uni.showToast({
+          title: "菜单功能开发中",
+          icon: "none"
+        });
+      },
+      goConfig() {
+        uni.navigateTo({ url: "/pages/debug/config" });
+      },
+      clearSearch() {
+        this.searchKeyword = "";
+      },
+      handleSearch() {
+        if (this.searchKeyword.trim()) {
+          const listType = this.isAbilityList ? "特性" : "招式";
+          const resultCount = this.isAbilityList ? this.filteredAbilityList.length : this.filteredMoveList.length;
+          if (resultCount === 0) {
+            uni.showToast({
+              title: `未找到匹配的${listType}`,
+              icon: "none",
+              duration: 1500
+            });
+          } else {
+            uni.showToast({
+              title: `找到${resultCount}个${listType}`,
+              icon: "none",
+              duration: 1500
+            });
+          }
+        }
+      },
+      // 切换列表类型（招式/特性）
+      toggleListType() {
+        this.isAbilityList = !this.isAbilityList;
+        this.searchKeyword = "";
+        this.moveList.forEach((item) => item.expanded = false);
+        this.abilityList.forEach((item) => item.expanded = false);
+      },
+      // 切换展开状态（支持招式和特性）
+      toggleExpand(index, type) {
+        if (type === "move") {
+          this.moveList.forEach((item, i) => {
+            if (i !== index) {
+              item.expanded = false;
+            }
+          });
+          this.moveList[index].expanded = !this.moveList[index].expanded;
+        } else if (type === "ability") {
+          this.abilityList.forEach((item, i) => {
+            if (i !== index) {
+              item.expanded = false;
+            }
+          });
+          this.abilityList[index].expanded = !this.abilityList[index].expanded;
+        }
+      },
+      // 切换排序方向
+      toggleSort() {
+        this.sortAscending = !this.sortAscending;
+        uni.showToast({
+          title: this.sortAscending ? "升序排序" : "降序排序",
+          icon: "none",
+          duration: 1e3
+        });
+      },
+      // 切换页面
+      switchPage(page) {
+        this.activePage = page;
+        if (page === "moves") {
+          return;
+        }
+        switch (page) {
+          case "pokedex":
+            uni.navigateTo({ url: "/pages/index/index" });
+            break;
+          case "community":
+            uni.navigateTo({ url: "/pages/index/index?page=community" });
+            break;
+          case "profile":
+            uni.navigateTo({ url: "/pages/login/index" });
+            break;
+        }
+      },
+      // 获取招式说明
+      getMoveDescription(item) {
+        const descriptions = {
+          "拍击": "用长长的尾巴或手等拍打对手进行攻击。",
+          "空手劈": "用锋利的手刀劈向对手进行攻击。容易击中要害。",
+          "火焰拳": "用充满火焰的拳头攻击对手。有时会让对手陷入灼伤状态。",
+          "喷射火焰": "向对手发射烈焰进行攻击。有时会让对手陷入灼伤状态。",
+          "雷电": "用强大的电流攻击对手。有时会让对手陷入麻痹状态。",
+          "水炮": "向对手喷射强力水流进行攻击。",
+          "生长": "让身体一下子长大，从而提高攻击和特攻。",
+          "毒针": "将有毒的针刺向对手进行攻击。有时会让对手陷入中毒状态。",
+          "冥想": "静心凝神，从而提高自己的特攻和特防。"
+        };
+        return descriptions[item.name] || `这是${item.name}招式，属于${item.type}属性${item.category}类招式。`;
+      }
+    }
+  };
+  function _sfc_render$1(_ctx, _cache, $props, $setup, $data, $options) {
+    return vue.openBlock(), vue.createElementBlock("view", { class: "container" }, [
+      vue.createCommentVNode(" 去除uniapp原生状态栏 "),
+      vue.createElementVNode("view", { class: "uni-status-bar" }),
+      vue.createCommentVNode(" 头部（使用首页的布局格式） "),
+      vue.createElementVNode("view", { class: "header" }, [
+        vue.createElementVNode("text", { class: "title" }, "招式与特性"),
+        vue.createElementVNode("view", { class: "header-buttons" }, [
+          vue.createElementVNode("view", {
+            class: "pokeball-icon",
+            onClick: _cache[0] || (_cache[0] = (...args) => $options.toggleMenu && $options.toggleMenu(...args))
+          }),
+          vue.createElementVNode("view", {
+            class: "debug-fab",
+            onClick: _cache[1] || (_cache[1] = (...args) => $options.goConfig && $options.goConfig(...args))
+          }, "调试")
+        ])
+      ]),
+      vue.createCommentVNode(" 搜索栏区域（包含切换按钮、搜索框、排序按钮） "),
+      vue.createElementVNode("view", { class: "search-section" }, [
+        vue.createCommentVNode(" 切换按钮（放在搜索框左边） "),
+        vue.createElementVNode("view", {
+          class: "switch-btn",
+          onClick: _cache[2] || (_cache[2] = (...args) => $options.toggleListType && $options.toggleListType(...args))
+        }, [
+          vue.createElementVNode(
+            "text",
+            {
+              class: vue.normalizeClass(["switch-icon", { active: $data.isAbilityList }])
+            },
+            vue.toDisplayString($data.isAbilityList ? "💫" : "⚡"),
+            3
+            /* TEXT, CLASS */
+          ),
+          vue.createElementVNode(
+            "text",
+            { class: "switch-text" },
+            vue.toDisplayString($data.isAbilityList ? "特性" : "招式"),
+            1
+            /* TEXT */
+          )
+        ]),
+        vue.createCommentVNode(" 搜索框（中间） "),
+        vue.createElementVNode("view", { class: "search-bar" }, [
+          vue.createElementVNode("view", { class: "search-container" }, [
+            vue.withDirectives(vue.createElementVNode("input", {
+              type: "text",
+              placeholder: $data.isAbilityList ? "搜索特性名称 / 效果" : "搜索招式名称 / 属性 / 分类",
+              "onUpdate:modelValue": _cache[3] || (_cache[3] = ($event) => $data.searchKeyword = $event),
+              onInput: _cache[4] || (_cache[4] = (...args) => $options.handleSearch && $options.handleSearch(...args))
+            }, null, 40, ["placeholder"]), [
+              [vue.vModelText, $data.searchKeyword]
+            ]),
+            vue.createElementVNode(
+              "view",
+              {
+                class: vue.normalizeClass(["clear-search", { visible: $data.searchKeyword.length > 0 }]),
+                onClick: _cache[5] || (_cache[5] = (...args) => $options.clearSearch && $options.clearSearch(...args))
+              },
+              null,
+              2
+              /* CLASS */
+            ),
+            vue.createElementVNode("view", {
+              class: "search-btn",
+              onClick: _cache[6] || (_cache[6] = (...args) => $options.handleSearch && $options.handleSearch(...args))
+            }, [
+              vue.createElementVNode("text", { class: "search-icon" }, "🔍")
+            ])
+          ])
+        ]),
+        vue.createCommentVNode(" 排序按钮（放在搜索框右边） "),
+        vue.createElementVNode("view", {
+          class: "sort-btn",
+          onClick: _cache[7] || (_cache[7] = (...args) => $options.toggleSort && $options.toggleSort(...args))
+        }, [
+          vue.createElementVNode(
+            "text",
+            { class: "sort-icon" },
+            vue.toDisplayString($data.sortAscending ? "↓↑" : "↑↓"),
+            1
+            /* TEXT */
+          ),
+          vue.createElementVNode("text", { class: "sort-text" }, "排序")
+        ])
+      ]),
+      vue.createCommentVNode(" 列表内容 "),
+      vue.createElementVNode("scroll-view", {
+        class: "list-container",
+        "scroll-y": ""
+      }, [
+        vue.createCommentVNode(" 招式列表 "),
+        !$data.isAbilityList ? (vue.openBlock(true), vue.createElementBlock(
+          vue.Fragment,
+          { key: 0 },
+          vue.renderList($options.filteredMoveList, (item, index) => {
+            return vue.openBlock(), vue.createElementBlock("view", {
+              key: "move-" + index,
+              class: "move-card"
+            }, [
+              vue.createElementVNode(
+                "text",
+                { class: "move-index" },
+                vue.toDisplayString(item.id),
+                1
+                /* TEXT */
+              ),
+              vue.createElementVNode("view", { class: "move-info" }, [
+                vue.createElementVNode("view", {
+                  class: "move-header",
+                  onClick: ($event) => $options.toggleExpand(index, "move")
+                }, [
+                  vue.createElementVNode(
+                    "text",
+                    { class: "move-name" },
+                    vue.toDisplayString(item.name),
+                    1
+                    /* TEXT */
+                  ),
+                  vue.createElementVNode("view", { class: "move-tags" }, [
+                    vue.createElementVNode(
+                      "view",
+                      {
+                        class: vue.normalizeClass(["type-tag", item.type])
+                      },
+                      vue.toDisplayString(item.type),
+                      3
+                      /* TEXT, CLASS */
+                    ),
+                    vue.createElementVNode("view", { class: "category-tag" }, [
+                      vue.createCommentVNode(" 物理（物攻）使用爆炸图标 "),
+                      item.category === "物理" ? (vue.openBlock(), vue.createElementBlock("view", {
+                        key: 0,
+                        class: "physical-icon"
+                      }, "💥")) : vue.createCommentVNode("v-if", true),
+                      vue.createCommentVNode(" 特殊（特攻）使用三个圈圈图标 "),
+                      item.category === "特殊" ? (vue.openBlock(), vue.createElementBlock("view", {
+                        key: 1,
+                        class: "special-icon"
+                      }, "🌀")) : vue.createCommentVNode("v-if", true),
+                      vue.createCommentVNode(" 变化使用太极图标 "),
+                      item.category === "变化" ? (vue.openBlock(), vue.createElementBlock("view", {
+                        key: 2,
+                        class: "change-icon"
+                      }, "☯️")) : vue.createCommentVNode("v-if", true)
+                    ]),
+                    vue.createCommentVNode(" 展开箭头 "),
+                    vue.createElementVNode(
+                      "view",
+                      {
+                        class: vue.normalizeClass(["expand-arrow", { expanded: item.expanded }])
+                      },
+                      [
+                        vue.createElementVNode("text", null, "▼")
+                      ],
+                      2
+                      /* CLASS */
+                    )
+                  ])
+                ], 8, ["onClick"]),
+                vue.createElementVNode(
+                  "text",
+                  { class: "move-stats" },
+                  "威力：" + vue.toDisplayString(item.power) + " 命中：" + vue.toDisplayString(item.accuracy) + " PP:" + vue.toDisplayString(item.pp) + " 优先：" + vue.toDisplayString(item.priority),
+                  1
+                  /* TEXT */
+                ),
+                vue.createCommentVNode(" 展开栏 "),
+                item.expanded ? (vue.openBlock(), vue.createElementBlock("view", {
+                  key: 0,
+                  class: "expand-panel"
+                }, [
+                  vue.createElementVNode("view", { class: "expand-content" }, [
+                    vue.createElementVNode("text", { class: "expand-title" }, "招式说明"),
+                    vue.createElementVNode(
+                      "text",
+                      { class: "expand-description" },
+                      vue.toDisplayString($options.getMoveDescription(item)),
+                      1
+                      /* TEXT */
+                    ),
+                    vue.createElementVNode("view", { class: "expand-details" }, [
+                      vue.createElementVNode("view", { class: "detail-item" }, [
+                        vue.createElementVNode("text", { class: "detail-label" }, "属性："),
+                        vue.createElementVNode(
+                          "text",
+                          { class: "detail-value" },
+                          vue.toDisplayString(item.type),
+                          1
+                          /* TEXT */
+                        )
+                      ]),
+                      vue.createElementVNode("view", { class: "detail-item" }, [
+                        vue.createElementVNode("text", { class: "detail-label" }, "分类："),
+                        vue.createElementVNode(
+                          "text",
+                          { class: "detail-value" },
+                          vue.toDisplayString(item.category),
+                          1
+                          /* TEXT */
+                        )
+                      ]),
+                      vue.createElementVNode("view", { class: "detail-item" }, [
+                        vue.createElementVNode("text", { class: "detail-label" }, "威力："),
+                        vue.createElementVNode(
+                          "text",
+                          { class: "detail-value" },
+                          vue.toDisplayString(item.power === "-" ? "无" : item.power),
+                          1
+                          /* TEXT */
+                        )
+                      ]),
+                      vue.createElementVNode("view", { class: "detail-item" }, [
+                        vue.createElementVNode("text", { class: "detail-label" }, "命中率："),
+                        vue.createElementVNode(
+                          "text",
+                          { class: "detail-value" },
+                          vue.toDisplayString(item.accuracy === "-" ? "必中" : item.accuracy),
+                          1
+                          /* TEXT */
+                        )
+                      ]),
+                      vue.createElementVNode("view", { class: "detail-item" }, [
+                        vue.createElementVNode("text", { class: "detail-label" }, "PP值："),
+                        vue.createElementVNode(
+                          "text",
+                          { class: "detail-value" },
+                          vue.toDisplayString(item.pp),
+                          1
+                          /* TEXT */
+                        )
+                      ]),
+                      vue.createElementVNode("view", { class: "detail-item" }, [
+                        vue.createElementVNode("text", { class: "detail-label" }, "优先度："),
+                        vue.createElementVNode(
+                          "text",
+                          { class: "detail-value" },
+                          vue.toDisplayString(item.priority),
+                          1
+                          /* TEXT */
+                        )
+                      ])
+                    ])
+                  ])
+                ])) : vue.createCommentVNode("v-if", true)
+              ])
+            ]);
+          }),
+          128
+          /* KEYED_FRAGMENT */
+        )) : vue.createCommentVNode("v-if", true),
+        vue.createCommentVNode(" 特性列表 "),
+        $data.isAbilityList ? (vue.openBlock(true), vue.createElementBlock(
+          vue.Fragment,
+          { key: 1 },
+          vue.renderList($options.filteredAbilityList, (item, index) => {
+            return vue.openBlock(), vue.createElementBlock("view", {
+              key: "ability-" + index,
+              class: "ability-card"
+            }, [
+              vue.createElementVNode(
+                "text",
+                { class: "ability-index" },
+                vue.toDisplayString(item.id),
+                1
+                /* TEXT */
+              ),
+              vue.createElementVNode("view", { class: "ability-info" }, [
+                vue.createElementVNode("view", {
+                  class: "ability-header",
+                  onClick: ($event) => $options.toggleExpand(index, "ability")
+                }, [
+                  vue.createElementVNode(
+                    "text",
+                    { class: "ability-name" },
+                    vue.toDisplayString(item.name),
+                    1
+                    /* TEXT */
+                  ),
+                  vue.createElementVNode("view", { class: "ability-tags" }, [
+                    vue.createElementVNode(
+                      "view",
+                      { class: "ability-type-tag" },
+                      vue.toDisplayString(item.type),
+                      1
+                      /* TEXT */
+                    ),
+                    vue.createCommentVNode(" 展开箭头 "),
+                    vue.createElementVNode(
+                      "view",
+                      {
+                        class: vue.normalizeClass(["expand-arrow", { expanded: item.expanded }])
+                      },
+                      [
+                        vue.createElementVNode("text", null, "▼")
+                      ],
+                      2
+                      /* CLASS */
+                    )
+                  ])
+                ], 8, ["onClick"]),
+                vue.createElementVNode(
+                  "text",
+                  { class: "ability-effect" },
+                  vue.toDisplayString(item.shortEffect),
+                  1
+                  /* TEXT */
+                ),
+                vue.createCommentVNode(" 展开栏 "),
+                item.expanded ? (vue.openBlock(), vue.createElementBlock("view", {
+                  key: 0,
+                  class: "expand-panel"
+                }, [
+                  vue.createElementVNode("view", { class: "expand-content" }, [
+                    vue.createElementVNode("text", { class: "expand-title" }, "特性说明"),
+                    vue.createElementVNode(
+                      "text",
+                      { class: "expand-description" },
+                      vue.toDisplayString(item.fullEffect),
+                      1
+                      /* TEXT */
+                    )
+                  ])
+                ])) : vue.createCommentVNode("v-if", true)
+              ])
+            ]);
+          }),
+          128
+          /* KEYED_FRAGMENT */
+        )) : vue.createCommentVNode("v-if", true)
+      ]),
+      vue.createCommentVNode(" 底部导航 "),
+      vue.createElementVNode("view", { class: "bottom-nav" }, [
+        (vue.openBlock(true), vue.createElementBlock(
+          vue.Fragment,
+          null,
+          vue.renderList($data.navItems, (nav) => {
+            return vue.openBlock(), vue.createElementBlock("view", {
+              key: nav.page,
+              class: vue.normalizeClass(["nav-button", { active: $data.activePage === nav.page }]),
+              onClick: ($event) => $options.switchPage(nav.page)
+            }, [
+              vue.createElementVNode("view", { class: "pokeball" }),
+              vue.createElementVNode(
+                "text",
+                null,
+                vue.toDisplayString(nav.label),
+                1
+                /* TEXT */
+              )
+            ], 10, ["onClick"]);
+          }),
+          128
+          /* KEYED_FRAGMENT */
+        ))
+      ])
+    ]);
+  }
+  const PagesMovesMoves = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["render", _sfc_render$1], ["__file", "C:/Users/j/Desktop/宝可梦图鉴 - 副本 (2)/pages/moves/moves.vue"]]);
   __definePage("pages/index/index", PagesIndexIndex);
   __definePage("pages/debug/config", PagesDebugConfig);
   __definePage("pages/detail/detail", PagesDetailDetail);
   __definePage("pages/login/index", PagesLoginIndex);
   __definePage("pages/community/create", PagesCommunityCreate);
   __definePage("pages/wiki/wiki", PagesWikiWiki);
-  const _sfc_main = {
+  __definePage("pages/moves/moves", PagesMovesMoves);
+  const _sfc_main$1 = {
     async onLaunch() {
       formatAppLog("log", "at App.vue:5", "App Launch");
       try {
@@ -3164,11 +3874,240 @@ if (uni.restoreGlobal) {
       formatAppLog("log", "at App.vue:24", "App Hide");
     }
   };
-  const App = /* @__PURE__ */ _export_sfc(_sfc_main, [["__file", "C:/Users/j/Desktop/宝可梦图鉴 - 副本 (2)/App.vue"]]);
+  const App = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["__file", "C:/Users/j/Desktop/宝可梦图鉴 - 副本 (2)/App.vue"]]);
+  const _sfc_main = {
+    name: "AIChatAssistant",
+    data() {
+      return {
+        isChatOpen: false,
+        inputMessage: "",
+        messages: [
+          {
+            type: "ai",
+            content: '你好！我是宝可梦助手，可以问我任何关于宝可梦的问题，比如"皮卡丘的进化形态是什么？"或"妙蛙种子的属性是什么？"'
+          }
+        ],
+        isLoading: false,
+        scrollTop: 0,
+        // Dify API配置
+        difyApiUrl: "https://dify.aipfuture.com/v1",
+        difyApiKey: "app-DW2nWIuKRYAjbvJnqsp1aaQ5",
+        // 页面显示控制
+        showInCurrentPage: false
+      };
+    },
+    computed: {
+      // 检查当前页面是否为宝可梦图鉴首页
+      isPokedexPage() {
+        const currentRoute = this.$route ? this.$route.path : "";
+        return currentRoute.includes("/pages/index/index") || currentRoute.includes("pokedex") || currentRoute === "/" || currentRoute === "";
+      }
+    },
+    mounted() {
+      this.checkCurrentPage();
+      this.$watch("$route", this.checkCurrentPage);
+    },
+    methods: {
+      // 检查当前页面是否为宝可梦图鉴首页
+      checkCurrentPage() {
+        const pages = getCurrentPages();
+        if (pages && pages.length > 0) {
+          const currentPage = pages[pages.length - 1];
+          const route = currentPage.route || "";
+          this.showInCurrentPage = route === "pages/index/index" || route.includes("/pages/index/index") || route === "pages/index";
+        } else {
+          this.showInCurrentPage = false;
+        }
+      },
+      toggleChat() {
+        this.isChatOpen = !this.isChatOpen;
+        if (this.isChatOpen) {
+          this.$nextTick(() => {
+            this.scrollToBottom();
+          });
+        }
+      },
+      async sendMessage() {
+        if (!this.inputMessage.trim())
+          return;
+        const userMessage = this.inputMessage.trim();
+        this.inputMessage = "";
+        this.messages.push({
+          type: "user",
+          content: userMessage
+        });
+        this.isLoading = true;
+        this.scrollToBottom();
+        try {
+          const response = await uni.request({
+            url: `${this.difyApiUrl}/chat-messages`,
+            method: "POST",
+            header: {
+              "Authorization": `Bearer ${this.difyApiKey}`,
+              "Content-Type": "application/json"
+            },
+            data: {
+              inputs: {},
+              query: userMessage,
+              response_mode: "blocking",
+              user: "pokemon-user"
+            },
+            timeout: 3e4
+          });
+          const res = Array.isArray(response) ? response[1] : response;
+          if (res && res.statusCode === 200 && res.data) {
+            const aiResponse = res.data.answer || res.data.message || "抱歉，我暂时无法回答这个问题。";
+            this.messages.push({
+              type: "ai",
+              content: aiResponse
+            });
+          } else {
+            throw new Error("API响应异常");
+          }
+        } catch (error) {
+          formatAppLog("error", "at components/ai-chat-assistant.vue:200", "调用Dify API失败:", error);
+          this.messages.push({
+            type: "ai",
+            content: "抱歉，宝可梦助手暂时无法响应，请稍后重试。"
+          });
+        } finally {
+          this.isLoading = false;
+          this.scrollToBottom();
+        }
+      },
+      scrollToBottom() {
+        this.$nextTick(() => {
+          setTimeout(() => {
+            this.scrollTop = 99999;
+          }, 100);
+        });
+      }
+    }
+  };
+  function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
+    return $data.showInCurrentPage ? (vue.openBlock(), vue.createElementBlock("view", {
+      key: 0,
+      class: "ai-chat-assistant"
+    }, [
+      vue.createCommentVNode(" 悬浮图标 "),
+      vue.createElementVNode(
+        "view",
+        {
+          class: vue.normalizeClass(["floating-icon", { active: $data.isChatOpen }]),
+          onClick: _cache[0] || (_cache[0] = (...args) => $options.toggleChat && $options.toggleChat(...args))
+        },
+        [
+          vue.createCommentVNode(" 精灵球图标 "),
+          vue.createElementVNode("view", { class: "pokeball-icon" }, [
+            vue.createElementVNode("view", { class: "pokeball-top" }),
+            vue.createElementVNode("view", { class: "pokeball-center" }),
+            vue.createElementVNode("view", { class: "pokeball-bottom" })
+          ])
+        ],
+        2
+        /* CLASS */
+      ),
+      vue.createCommentVNode(" 聊天框 "),
+      vue.createElementVNode(
+        "view",
+        {
+          class: vue.normalizeClass(["chat-container", { open: $data.isChatOpen }])
+        },
+        [
+          vue.createCommentVNode(" 聊天框头部 "),
+          vue.createElementVNode("view", { class: "chat-header" }, [
+            vue.createElementVNode("text", { class: "chat-title" }, "宝可梦助手"),
+            vue.createElementVNode("view", {
+              class: "close-button",
+              onClick: _cache[1] || (_cache[1] = (...args) => $options.toggleChat && $options.toggleChat(...args))
+            }, [
+              vue.createElementVNode("text", { class: "close-icon" }, "✕")
+            ])
+          ]),
+          vue.createCommentVNode(" 聊天记录区域 "),
+          vue.createElementVNode("scroll-view", {
+            class: "chat-messages",
+            "scroll-y": "true",
+            "scroll-top": $data.scrollTop
+          }, [
+            (vue.openBlock(true), vue.createElementBlock(
+              vue.Fragment,
+              null,
+              vue.renderList($data.messages, (msg, index) => {
+                return vue.openBlock(), vue.createElementBlock(
+                  "view",
+                  {
+                    key: index,
+                    class: vue.normalizeClass(["message", msg.type])
+                  },
+                  [
+                    vue.createElementVNode("view", { class: "message-content" }, [
+                      vue.createElementVNode("view", { class: "message-bubble" }, [
+                        vue.createElementVNode(
+                          "text",
+                          { class: "message-text" },
+                          vue.toDisplayString(msg.content),
+                          1
+                          /* TEXT */
+                        )
+                      ]),
+                      msg.type === "ai" ? (vue.openBlock(), vue.createElementBlock("view", {
+                        key: 0,
+                        class: "pokeball-indicator"
+                      }, [
+                        vue.createElementVNode("view", { class: "mini-pokeball" })
+                      ])) : vue.createCommentVNode("v-if", true)
+                    ])
+                  ],
+                  2
+                  /* CLASS */
+                );
+              }),
+              128
+              /* KEYED_FRAGMENT */
+            )),
+            $data.isLoading ? (vue.openBlock(), vue.createElementBlock("view", {
+              key: 0,
+              class: "loading-indicator"
+            }, [
+              vue.createElementVNode("text", { class: "loading-text" }, "宝可梦助手正在思考..."),
+              vue.createElementVNode("view", { class: "loading-dots" }, [
+                vue.createElementVNode("view", { class: "dot" }),
+                vue.createElementVNode("view", { class: "dot" }),
+                vue.createElementVNode("view", { class: "dot" })
+              ])
+            ])) : vue.createCommentVNode("v-if", true)
+          ], 8, ["scroll-top"]),
+          vue.createCommentVNode(" 输入区域 "),
+          vue.createElementVNode("view", { class: "chat-input-area" }, [
+            vue.withDirectives(vue.createElementVNode("input", {
+              class: "message-input",
+              "onUpdate:modelValue": _cache[2] || (_cache[2] = ($event) => $data.inputMessage = $event),
+              placeholder: "输入关于宝可梦的问题...",
+              disabled: $data.isLoading,
+              onConfirm: _cache[3] || (_cache[3] = (...args) => $options.sendMessage && $options.sendMessage(...args))
+            }, null, 40, ["disabled"]), [
+              [vue.vModelText, $data.inputMessage]
+            ]),
+            vue.createElementVNode("button", {
+              class: "send-button",
+              disabled: !$data.inputMessage.trim() || $data.isLoading,
+              onClick: _cache[4] || (_cache[4] = (...args) => $options.sendMessage && $options.sendMessage(...args))
+            }, [
+              vue.createElementVNode("text", { class: "send-icon" }, "➤")
+            ], 8, ["disabled"])
+          ])
+        ],
+        2
+        /* CLASS */
+      )
+    ])) : vue.createCommentVNode("v-if", true);
+  }
+  const AIChatAssistant = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-e57954c4"], ["__file", "C:/Users/j/Desktop/宝可梦图鉴 - 副本 (2)/components/ai-chat-assistant.vue"]]);
   (function bootstrapSupabase() {
     try {
-      const url = "" ? "" : "http://192.168.1.144:8000";
-      const key = "" ? "" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyAgCiAgICAicm9sZSI6ICJhbm9uIiwKICAgICJpc3MiOiAic3VwYWJhc2UtZGVtbyIsCiAgICAiaWF0IjogMTY0MTc2OTIwMCwKICAgICJleHAiOiAxNzk5NTM1NjAwCn0.dc_X5iR_VP_qT0zsiyj_I_OZ2T9FtRU2BBNWN8Bu4GE";
+      const url = "" ? "" : "https://ppyigzumhwpvmkfxrjpv.supabase.co";
+      const key = "" ? "" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBweWlnenVtaHdwdm1rZnhyanB2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA4NTY5ODYsImV4cCI6MjA3NjQzMjk4Nn0.7rUQY_prT3l8KSKuaEFalU3lp2yaj6xjFLSn8_KXfAE";
       if (url && key) {
         setSupabaseConfig(String(url), String(key));
         return;
@@ -3205,6 +4144,7 @@ if (uni.restoreGlobal) {
   })();
   function createApp() {
     const app = vue.createVueApp(App);
+    app.component("ai-chat-assistant", AIChatAssistant);
     return {
       app
     };

@@ -698,3 +698,38 @@ export async function fetchPokemonDetailOptimized(formsId) {
     throw error;
   }
 }
+
+// --- 通用 POST 辅助（含用户令牌覆盖） ---
+async function uniPost(path, body, tokenOverride, params) {
+  const conf = await buildRest(path + (params ? buildQuery(params) : ''), {})
+  const headers = { ...conf.headers, Prefer: 'return=representation' }
+  if (tokenOverride) headers.Authorization = `Bearer ${tokenOverride}`
+  console.log('[Blog] uniPost', { path, hasToken: !!tokenOverride, tokenHead: tokenOverride ? String(tokenOverride).slice(0,8) : '', authHead: headers.Authorization ? String(headers.Authorization).slice(0,20) + '...' : '' })
+  return new Promise((resolve, reject) => {
+    uni.request({
+      url: conf.full,
+      method: 'POST',
+      header: headers,
+      data: body,
+      success: (res) => {
+        if (res.statusCode >= 200 && res.statusCode < 300) resolve(res.data)
+        else reject(new Error('HTTP ' + res.statusCode + ': ' + JSON.stringify(res.data)))
+      },
+      fail: reject
+    })
+  })
+}
+
+// 创建博客帖子（写入 public.blog 表）
+export async function createBlogPost({ uid, title, content, accessToken }) {
+  await initSupabaseEnv()
+  if (!uid || !accessToken) throw new Error('缺少用户凭证，无法发布帖子')
+  const rows = await uniPost('blog', [{ uid, title, content }], accessToken, { select: '*' })
+  return Array.isArray(rows) ? rows[0] : rows
+}
+
+// 拉取 blog 列表（按 blog_id 倒序）
+export async function fetchBlogs(limit = 50) {
+  const data = await uniGet('blog', { select: 'blog_id,uid,title,content', order: 'blog_id.desc', limit: String(limit) })
+  return Array.isArray(data) ? data : []
+}

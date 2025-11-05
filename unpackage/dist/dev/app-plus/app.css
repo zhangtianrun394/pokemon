@@ -18,3 +18,365 @@ html, body {
   background: #fff;
   font-family: 'PingFang SC', 'Helvetica Neue', Arial, sans-serif;
 }
+
+
+.ai-chat-assistant[data-v-e57954c4] {
+  position: fixed;
+  bottom: 100px;
+  right: 20px;
+  z-index: 10000;
+}
+
+/* 悬浮图标样式 */
+.floating-icon[data-v-e57954c4] {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 8px 25px rgba(230, 57, 70, 0.4);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  animation: breath-e57954c4 3s ease-in-out infinite;
+  border: 3px solid #E63946;
+}
+.floating-icon.active[data-v-e57954c4] {
+  transform: scale(1.1);
+  box-shadow: 0 12px 35px rgba(230, 57, 70, 0.6);
+}
+.floating-icon[data-v-e57954c4]:hover {
+  transform: scale(1.05);
+}
+@keyframes breath-e57954c4 {
+0%, 100% { 
+    transform: scale(1);
+    box-shadow: 0 8px 25px rgba(230, 57, 70, 0.4);
+}
+50% { 
+    transform: scale(1.05);
+    box-shadow: 0 12px 30px rgba(230, 57, 70, 0.6);
+}
+}
+
+/* 神奇宝贝球图标 */
+.pokeball-icon[data-v-e57954c4] {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid #000;
+  background: linear-gradient(to bottom, #E63946 0%, #E63946 45%, white 45%, white 55%, white 55%, white 100%);
+}
+.pokeball-top[data-v-e57954c4] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 45%;
+  background: #E63946;
+  border-bottom: 2px solid #000;
+}
+.pokeball-center[data-v-e57954c4] {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #000;
+  background: #fff;
+  z-index: 2;
+}
+.pokeball-bottom[data-v-e57954c4] {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 45%;
+  background: #fff;
+}
+
+/* 神奇宝贝球中心按钮 */
+.pokeball-center[data-v-e57954c4]::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1px solid white;
+  background: white;
+  z-index: 1;
+}
+.pokeball-center[data-v-e57954c4]::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #1D3557;
+  z-index: 2;
+}
+
+/* 聊天框样式 */
+.chat-container[data-v-e57954c4] {
+  position: absolute;
+  bottom: 100px;
+  right: 0;
+  width: 300px;
+  height: 400px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  transform: translateY(20px) scale(0.9);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  pointer-events: none;
+  overflow: hidden;
+}
+.chat-container.open[data-v-e57954c4] {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+/* 聊天框头部 */
+.chat-header[data-v-e57954c4] {
+  background: linear-gradient(135deg, #1D3557, #457B9D);
+  color: white;
+  padding: 16px;
+  border-radius: 16px 16px 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.chat-title[data-v-e57954c4] {
+  font-size: 18px;
+  font-weight: bold;
+}
+.close-button[data-v-e57954c4] {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.close-button[data-v-e57954c4]:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+.close-icon[data-v-e57954c4] {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* 聊天记录区域 */
+.chat-messages[data-v-e57954c4] {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;
+  background: #F8F9FA;
+}
+.message[data-v-e57954c4] {
+  margin-bottom: 16px;
+  display: flex;
+}
+.message.user[data-v-e57954c4] {
+  justify-content: flex-end;
+}
+.message.ai[data-v-e57954c4] {
+  justify-content: flex-start;
+}
+.message-content[data-v-e57954c4] {
+  display: flex;
+  align-items: flex-end;
+  max-width: 80%;
+}
+.message.user .message-content[data-v-e57954c4] {
+  flex-direction: row-reverse;
+}
+.message-bubble[data-v-e57954c4] {
+  padding: 12px 16px;
+  border-radius: 18px;
+  max-width: 100%;
+  word-wrap: break-word;
+}
+.message.user .message-bubble[data-v-e57954c4] {
+  background: linear-gradient(135deg, #E63946, #FF6B6B);
+  color: white;
+  border-bottom-right-radius: 4px;
+}
+.message.ai .message-bubble[data-v-e57954c4] {
+  background: white;
+  color: #333;
+  border: 1px solid #E0E0E0;
+  border-bottom-left-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+.message-text[data-v-e57954c4] {
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+/* AI消息指示器 */
+.pokeball-indicator[data-v-e57954c4] {
+  margin-left: 8px;
+  display: flex;
+  align-items: center;
+}
+.mini-pokeball[data-v-e57954c4] {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #1D3557;
+  background: linear-gradient(to bottom, #E63946 0%, #E63946 45%, white 45%, white 55%, white 55%, white 100%);
+  position: relative;
+}
+.mini-pokeball[data-v-e57954c4]::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  border: 1px solid white;
+  background: white;
+  z-index: 1;
+}
+.mini-pokeball[data-v-e57954c4]::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #1D3557;
+  z-index: 2;
+}
+
+/* 加载指示器 */
+.loading-indicator[data-v-e57954c4] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 16px;
+}
+.loading-text[data-v-e57954c4] {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 8px;
+}
+.loading-dots[data-v-e57954c4] {
+  display: flex;
+  gap: 4px;
+}
+.dot[data-v-e57954c4] {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #E63946;
+  animation: bounce-e57954c4 1.4s infinite ease-in-out;
+}
+.dot[data-v-e57954c4]:nth-child(1) { animation-delay: -0.32s;
+}
+.dot[data-v-e57954c4]:nth-child(2) { animation-delay: -0.16s;
+}
+.dot[data-v-e57954c4]:nth-child(3) { animation-delay: 0s;
+}
+@keyframes bounce-e57954c4 {
+0%, 80%, 100% { 
+    transform: scale(0.8);
+    opacity: 0.5;
+}
+40% { 
+    transform: scale(1);
+    opacity: 1;
+}
+}
+
+/* 输入区域 */
+.chat-input-area[data-v-e57954c4] {
+  padding: 16px;
+  border-top: 1px solid #E0E0E0;
+  display: flex;
+  gap: 8px;
+  background: white;
+  border-radius: 0 0 16px 16px;
+}
+.message-input[data-v-e57954c4] {
+  flex: 1;
+  padding: 12px 16px;
+  border: 1px solid #E0E0E0;
+  border-radius: 24px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.message-input[data-v-e57954c4]:focus {
+  border-color: #E63946;
+}
+.send-button[data-v-e57954c4] {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #E63946, #FF6B6B);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.send-button[data-v-e57954c4]:disabled {
+  background: #CCCCCC;
+  cursor: not-allowed;
+}
+.send-button[data-v-e57954c4]:not(:disabled):hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(230, 57, 70, 0.3);
+}
+.send-icon[data-v-e57954c4] {
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* 响应式设计 */
+@media (max-width: 480px) {
+.ai-chat-assistant[data-v-e57954c4] {
+    bottom: 80px;
+    right: 10px;
+}
+.floating-icon[data-v-e57954c4] {
+    width: 70px;
+    height: 70px;
+}
+.pokeball-icon[data-v-e57954c4] {
+    width: 45px;
+    height: 45px;
+}
+.chat-container[data-v-e57954c4] {
+    width: calc(100vw - 40px);
+    height: 70vh;
+    right: -10px;
+}
+}

@@ -55,8 +55,14 @@ app.$mount()
 
 // #ifdef VUE3
 import { createSSRApp } from 'vue'
+import AIChatAssistant from './components/ai-chat-assistant.vue'
+
 export function createApp() {
   const app = createSSRApp(App)
+  
+  // 全局注册AI聊天助手组件
+  app.component('ai-chat-assistant', AIChatAssistant)
+  
   return {
     app
   }

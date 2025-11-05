@@ -29,6 +29,10 @@ export default defineConfig(({ mode }) => {
         }
       }
     },
-    base: './'
+    base: './',
+    optimizeDeps: {
+      include: ['@supabase/supabase-js'],
+      force: true
+    }
   }
 })

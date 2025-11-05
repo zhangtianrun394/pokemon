@@ -81,6 +81,8 @@
 </template>
 
 <script>
+import { createClient } from '@supabase/supabase-js'
+import { createBlogPost } from '../../src/lib/pokeData.js'
 export default {
   data() {
     return {
@@ -91,7 +93,21 @@ export default {
       selectedVideo: '',
       toastMsg: '',
       loading: false,
+      supabaseUrl: '',
+      supabaseKey: '',
+      supabase: null,
     }
+  },
+  onLoad() {
+    // 读取登录时缓存的 client，避免 H5/App service 不同上下文取不到 session
+    try {
+      const env = (typeof import.meta !== 'undefined' && import.meta.env) ? import.meta.env : {}
+      this.supabaseUrl = env && env.VITE_SUPABASE_URL ? String(env.VITE_SUPABASE_URL) : ''
+      this.supabaseKey = env && env.VITE_SUPABASE_ANON_KEY ? String(env.VITE_SUPABASE_ANON_KEY) : ''
+      if (this.supabaseUrl && this.supabaseKey) {
+        this.supabase = createClient(this.supabaseUrl.replace(/\/$/, ''), this.supabaseKey)
+      }
+    } catch (e) {}
   },
   methods: {
     goBack() {
@@ -133,20 +149,40 @@ export default {
       this.toastMsg = message
       setTimeout(() => { this.toastMsg = '' }, duration)
     },
-    publishPost() {
+    async publishPost() {
       const title = (this.postTitle || '').trim()
       const content = (this.postContent || '').trim()
-      const tags = (this.postTags || '').trim()
       if (!title) { this.showToast('请输入标题'); return }
       if (!content) { this.showToast('请输入正文内容'); return }
+      // 读取登录态
+      let accessToken = ''
+      let uid = ''
+      try {
+        const sess = uni.getStorageSync('auth_session')
+        if (sess && sess.access_token && sess.user && sess.user.id) {
+          accessToken = sess.access_token
+          uid = sess.user.id
+          console.log('[Auth] use session from storage', { uid, atLen: accessToken ? accessToken.length : 0 })
+        } else if (this.supabase) {
+          const { data: s } = await this.supabase.auth.getSession()
+          if (s && s.session) {
+            accessToken = s.session.access_token
+            uid = s.session.user.id
+            console.log('[Auth] use session from supabase.getSession()', { uid, atLen: accessToken ? accessToken.length : 0 })
+            try { uni.setStorageSync('auth_session', { access_token: accessToken, refresh_token: s.session.refresh_token, expires_at: s.session.expires_at, user: { id: uid, email: s.session.user.email, user_metadata: s.session.user.user_metadata } }) } catch(_){}
+          }
+        }
+      } catch (e) {}
+      if (!accessToken || !uid) { this.showToast('请先登录'); return }
       this.loading = true
-      setTimeout(() => {
-        this.loading = false
-        this.showToast('发布成功', 1500)
+      try {
+        const row = await createBlogPost({ uid, title, content, accessToken })
+        // 回写本地 newPost，便于首页社区页即时显示
+        const displayName = (uni.getStorageSync('user') || {}).name || '我'
         const newPost = {
-          id: Date.now(),
+          id: row.blog_id || Date.now(),
           avatar: 'https://ai-public.mastergo.com/ai/img_res/a80f1e0b5ba3d38b3dccce7abc7d0323.jpg',
-          username: '当前用户',
+          username: displayName,
           time: '刚刚',
           content,
           image: this.selectedImage,
@@ -159,8 +195,14 @@ export default {
           commentList: []
         }
         try { uni.setStorageSync('newPost', newPost) } catch(e) {}
+        this.showToast('发布成功', 1200)
         setTimeout(() => { uni.navigateBack() }, 800)
-      }, 1200)
+      } catch (err) {
+        console.error('发布失败', err)
+        this.showToast('发布失败：' + (err.message || err), 2000)
+      } finally {
+        this.loading = false
+      }
     }
   }
 }

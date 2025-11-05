@@ -5,6 +5,9 @@
 			<view class="loading-ball"></view>
 		</view>
 		
+		<!-- AI聊天助手组件（仅在图鉴页面显示） -->
+		<ai-chat-assistant v-if="activePage === 'pokedex'" />
+		
 		<!-- 背景图案 -->
 		<view class="background-pattern" id="pattern-container"></view>
 		
@@ -211,8 +214,9 @@
 </template>
 
 <script>
-import { fetchAllForHomeJunction, setSupabaseConfig } from '../../src/lib/pokeData.js'
-	export default {
+import { fetchAllForHomeJunction, setSupabaseConfig, fetchBlogs } from '../../src/lib/pokeData.js'
+
+export default {
 		data() {
 			return {
 				isLoading: true,
@@ -229,63 +233,7 @@ import { fetchAllForHomeJunction, setSupabaseConfig } from '../../src/lib/pokeDa
 				displayName: '训练师',
 				// 社区状态
 				communitySearch: '',
-				communityPosts: [
-					{
-						id: 1,
-						avatar: 'https://ai-public.mastergo.com/ai/img_res/a80f1e0b5ba3d38b3dccce7abc7d0323.jpg',
-						username: '小智',
-						time: '2小时前',
-						content: '今天终于收服了皮卡丘！太开心了！',
-						image: 'https://ai-public.mastergo.com/ai/img_res/c4105702bb313ebec27e968031c6d893.jpg',
-						video: '',
-						likes: 42,
-						liked: false,
-						comments: 8,
-						favorites: 5,
-						favorited: false,
-						commentList: [
-							{ username: '小霞', content: '恭喜恭喜！皮卡丘很可爱呢！', time: '1小时前' },
-							{ username: '小刚', content: '训练家之路开始了，加油！', time: '45分钟前' },
-							{ username: '火箭队', content: '既然你诚心诚意地发问了，我们就大发慈悲地告诉你！', time: '30分钟前' }
-						]
-					},
-					{
-						id: 2,
-						avatar: 'https://ai-public.mastergo.com/ai/img_res/b588a136138a2352b71cd8ed9de76b44.jpg',
-						username: '小霞',
-						time: '5小时前',
-						content: '分享我的水系宝可梦队伍，大家觉得怎么样？',
-						image: 'https://ai-public.mastergo.com/ai/img_res/ada19814eaea4d830cfd461c0cf34bfd.jpg',
-						video: '',
-						likes: 36,
-						liked: true,
-						comments: 12,
-						favorites: 7,
-						favorited: true,
-						commentList: [
-							{ username: '小智', content: '水系宝可梦很强大！', time: '4小时前' },
-							{ username: '小刚', content: '队伍搭配很合理！', time: '3小时前' }
-						]
-					},
-					{
-						id: 3,
-						avatar: 'https://ai-public.mastergo.com/ai/img_res/a7b871a3280c087cd6f9ea3857f8606a.jpg',
-						username: '小刚',
-						time: '昨天',
-						content: '岩石系宝可梦培养心得分享视频',
-						image: '',
-						video: 'https://ai-public.mastergo.com/ai/img_res/b08e7758a877a52aa6bb4b0ce3cbe060.jpg',
-						likes: 28,
-						liked: false,
-						comments: 5,
-						favorites: 3,
-						favorited: false,
-						commentList: [
-							{ username: '小智', content: '学到了很多，谢谢分享！', time: '昨天' },
-							{ username: '小霞', content: '视频讲解很详细！', time: '昨天' }
-						]
-					}
-				],
+				communityPosts: [],
 				currentPostIndex: 0,
 				currentComments: [],
 				showCommentModal: false,
@@ -361,6 +309,26 @@ import { fetchAllForHomeJunction, setSupabaseConfig } from '../../src/lib/pokeDa
 					uni.removeStorageSync('newPost')
 				}
 			} catch(e) {}
+			// 每次显示页面时从后端拉取最新 blog 列表，覆盖静态数据
+			;(async () => {
+				try {
+					const list = await fetchBlogs(50)
+					if (Array.isArray(list)) {
+						const displayName = (uni.getStorageSync('user')||{}).name || '用户'
+						this.communityPosts = list.map(b => ({
+							id: b.blog_id,
+							avatar: 'https://ai-public.mastergo.com/ai/img_res/a80f1e0b5ba3d38b3dccce7abc7d0323.jpg',
+							username: displayName,
+							time: '刚刚',
+							content: b.content,
+							image: '',
+							video: '',
+							likes: 0, liked: false, comments: 0, favorites: 0, favorited: false,
+							commentList: []
+						}))
+					}
+				} catch(err) { console.warn('加载 blog 列表失败', err && err.message ? err.message : err) }
+			})()
 		},
 		methods: {
 			// 社区数据与交互

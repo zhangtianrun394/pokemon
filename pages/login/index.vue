@@ -85,7 +85,7 @@
 							<text>{{ showPassword ? '👁️' : '👁️‍🗨️' }}</text>
 						</view>
 					</view>
-					<button class="submit-btn" @click="handleLogin">登录</button>
+					<button class="submit-btn" :disabled="loginLoading" @click="handleLogin">登录</button>
 					<view class="footer-links">
 						<text class="link" @click="forgotPassword">忘记密码？</text>
 					</view>
@@ -133,7 +133,7 @@
 							<text>{{ showConfirmPassword ? '👁️' : '👁️‍🗨️' }}</text>
 						</view>
 					</view>
-					<button class="submit-btn" @click="handleRegister">注册</button>
+					<button class="submit-btn" :disabled="registerLoading" @click="handleRegister">注册</button>
 					<view class="footer-links">
 						<text class="link switch-link" @click="switchToLogin">切换到登录</text>
 					</view>
@@ -144,6 +144,7 @@
 </template>
 
 <script>
+import { createClient } from '@supabase/supabase-js'
 	export default {
 		data() {
 			return {
@@ -153,6 +154,9 @@
 				imageLoaded: false,
 				supabaseUrl: '',
 				supabaseKey: '',
+				supabase: null,
+				loginLoading: false,
+				registerLoading: false,
 				loginForm: {
 					usernameOrEmail: '',
 					password: ''
@@ -168,6 +172,10 @@
 		onLoad() {
 			this.bootstrapEnv()
 			try {
+				if (this.supabaseUrl && this.supabaseKey) {
+					this.supabase = createClient(this.supabaseUrl.replace(/\/$/, ''), this.supabaseKey)
+				}
+
 				const u = uni.getStorageSync('user')
 				if (u && u.name) { uni.reLaunch({ url: '/pages/index/index?page=profile' }) }
 			} catch (e) {}
@@ -215,69 +223,77 @@
 			},
 			handleLogin: async function() {
 				const { usernameOrEmail, password } = this.loginForm
-				const name = (usernameOrEmail || '').trim()
-				if (!name || !password) { uni.showToast({ title: '请输入用户名和密码', icon: 'none' }); return }
+				const email = (usernameOrEmail || '').trim()
+				if (!email || !password) { uni.showToast({ title: '请填写邮箱和密码', icon: 'none' }); return }
+				if (!email.includes('@')) { uni.showToast({ title: '请使用邮箱登录', icon: 'none' }); return }
 				try {
 					await new Promise((resolve)=>{ this.bootstrapEnv(); setTimeout(resolve, 0) })
 					const base = (this.supabaseUrl || '').replace(/\/$/, '')
 					const key = this.supabaseKey
 					if (!base || !key) { uni.showToast({ title: '后端配置缺失', icon: 'none' }); return }
-					const url = `${base}/rest/v1/Users?select=\"UID\",name&name=eq.${encodeURIComponent(name)}&password=eq.${encodeURIComponent(password)}&limit=1`
-					const headers = { 'apikey': key, 'Authorization': `Bearer ${key}`, 'Accept': 'application/json' }
-					const res = await new Promise((resolve, reject) => {
-						uni.request({ url, method: 'GET', header: headers, timeout: 12000, success: resolve, fail: reject })
-					})
-					if (res.statusCode >= 200 && res.statusCode < 300) {
-						const rows = Array.isArray(res.data) ? res.data : []
-						if (rows.length === 1) {
-							try { uni.setStorageSync('user', { uid: rows[0].UID, name: rows[0].name }) } catch(_){}
-							uni.showToast({ title: '登录成功', icon: 'none' })
-							setTimeout(()=>{ uni.reLaunch({ url: '/pages/index/index?page=profile' }) }, 300)
-						} else {
-							uni.showToast({ title: '用户名或密码错误', icon: 'none' })
-						}
+					if (!this.supabase) { this.supabase = createClient(base, key) }
+					this.loginLoading = true
+					const { data, error } = await this.supabase.auth.signInWithPassword({ email, password })
+					if (error) { this.loginLoading = false; uni.showToast({ title: '登录失败: ' + error.message, icon: 'none' }); return }
+					const session = data?.session
+					const user = data?.user
+					console.log('[Auth] signIn success:', { userId: user && user.id, hasSession: !!session, atLen: session && session.access_token ? session.access_token.length : 0 })
+					if (session && user) {
+						try { uni.setStorageSync('auth_session', { access_token: session.access_token, refresh_token: session.refresh_token, expires_at: session.expires_at, user: { id: user.id, email: user.email, user_metadata: user.user_metadata } }) } catch(_){}
+						// 登录后同步 profile 表（若丢失则补全 full_name）
+						try {
+							const displayName = (user?.user_metadata && (user.user_metadata.name || user.user_metadata.full_name)) || (user?.email ? user.email.split('@')[0] : '训练家')
+							try { uni.setStorageSync('user', { name: displayName, email: user.email }) } catch(_){}
+							const payload = { id: user.id, email: user.email, full_name: displayName }
+							const { error: upsertErr } = await this.supabase.from('profiles').upsert(payload, { onConflict: 'id' })
+							if (upsertErr) { console.warn('登录后同步 profile 失败:', upsertErr.message) }
+						} catch (e2) { console.warn('登录后同步资料异常:', e2 && e2.message ? e2.message : e2) }
+						this.loginLoading = false
+						uni.showToast({ title: '登录成功', icon: 'none' })
+						setTimeout(()=>{ uni.reLaunch({ url: '/pages/index/index?page=profile' }) }, 300)
 					} else {
-						uni.showToast({ title: '登录失败: HTTP ' + res.statusCode, icon: 'none' })
+						uni.showToast({ title: '登录失败: 无有效会话', icon: 'none' })
 					}
 				} catch (e) {
+					this.registerLoading = false
 					uni.showToast({ title: '网络异常: ' + (e.errMsg || e.message || e), icon: 'none' })
 				}
 			},
 			handleRegister: async function() {
-				const { username, password, confirmPassword } = this.registerForm
-				if (!username || !password || !confirmPassword) { uni.showToast({ title: '请填写完整信息', icon: 'none' }); return }
+				const { username, email, password, confirmPassword } = this.registerForm
+				if (!username || !email || !password || !confirmPassword) { uni.showToast({ title: '请填写完整信息', icon: 'none' }); return }
+				if (!email.includes('@')) { uni.showToast({ title: '请输入有效邮箱', icon: 'none' }); return }
 				if (password !== confirmPassword) { uni.showToast({ title: '两次密码不一致', icon: 'none' }); return }
 				try {
 					await new Promise((resolve)=>{ this.bootstrapEnv(); setTimeout(resolve, 0) })
 					const base = (this.supabaseUrl || '').replace(/\/$/, '')
 					const key = this.supabaseKey
 					if (!base || !key) { uni.showToast({ title: '后端配置缺失', icon: 'none' }); return }
-					const headers = { 'apikey': key, 'Authorization': `Bearer ${key}`, 'Accept': 'application/json' }
-					// 先检查重名
-					const checkUrl = `${base}/rest/v1/Users?select=name&name=eq.${encodeURIComponent(username)}&limit=1`
-					const checkRes = await new Promise((resolve, reject) => {
-						uni.request({ url: checkUrl, method: 'GET', header: headers, timeout: 10000, success: resolve, fail: reject })
-					})
-					if (checkRes.statusCode >= 200 && checkRes.statusCode < 300) {
-						const exists = Array.isArray(checkRes.data) && checkRes.data.length > 0
-						if (exists) { uni.showToast({ title: '用户名已存在', icon: 'none' }); return }
-					} else { uni.showToast({ title: '重名检查失败: HTTP ' + checkRes.statusCode, icon: 'none' }); return }
-
-					// 通过检查后再插入
-					const createUrl = `${base}/rest/v1/Users`
-					const createHeaders = { ...headers, 'Content-Type': 'application/json', 'Prefer': 'return=representation' }
-					const body = { name: username, password, created_time: new Date().toISOString() }
-					const res = await new Promise((resolve, reject) => {
-						uni.request({ url: createUrl, method: 'POST', header: createHeaders, data: body, timeout: 12000, success: resolve, fail: reject })
-					})
-					if (res.statusCode >= 200 && res.statusCode < 300) {
-						uni.showToast({ title: '注册成功', icon: 'none' })
-						setTimeout(()=>{ uni.reLaunch({ url: '/pages/index/index?page=profile' }) }, 500)
+					if (!this.supabase) { this.supabase = createClient(base, key) }
+					this.registerLoading = true
+					const { data, error } = await this.supabase.auth.signUp({ email, password, options: { data: { name: username } } })
+					if (error) { this.registerLoading = false; uni.showToast({ title: '注册失败: ' + error.message, icon: 'none' }); return }
+					console.log('[Auth] signUp result:', { userId: data && data.user && data.user.id, sessionExists: !!(data && data.session), atLen: data && data.session && data.session.access_token ? data.session.access_token.length : 0 })
+					if (data?.user) {
+						// 注册后同步用户资料到 profile 表（id, email, full_name, avatar_url）
+						try {
+							const userId = data.user.id
+							const payload = { id: userId, email, full_name: username, avatar_url: null, password: password }
+							const { error: upsertError } = await this.supabase.from('profiles').upsert(payload, { onConflict: 'id' })
+							if (upsertError) { console.warn('用户资料写入 profile 表失败:', upsertError.message) }
+						} catch (e) { console.warn('同步用户资料异常:', e && e.message ? e.message : e) }
+						this.registerLoading = false
+						try { uni.setStorageSync('user', { name: username, email }) } catch(_){ }
+						uni.showToast({ title: '注册成功，请查收邮箱确认链接', icon: 'none' })
+						setTimeout(()=>{ uni.reLaunch({ url: '/pages/index/index?page=profile' }) }, 800)
 					} else {
-						const msg = (res.data && res.data.message) ? res.data.message : ('HTTP ' + res.statusCode)
-						uni.showToast({ title: '注册失败: ' + msg, icon: 'none' })
+						this.registerLoading = false
+						try { uni.setStorageSync('user', { name: username, email }) } catch(_){}
+						uni.showToast({ title: '注册成功', icon: 'none' })
+						setTimeout(()=>{ uni.reLaunch({ url: '/pages/index/index?page=profile' }) }, 800)
 					}
 				} catch (e) {
+					this.registerLoading = false
 					uni.showToast({ title: '网络异常: ' + (e.errMsg || e.message || e), icon: 'none' })
 				}
 			},
