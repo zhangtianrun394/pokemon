@@ -37,11 +37,11 @@
 			</view>
 		</view>
 		
-		<!-- 排序选项（仅图鉴页显示） -->
-		<view class="sort-options" v-if="activePage !== 'community'">
-			<text>属性</text>
-			<button class="sort-button" @click="toggleSort">{{ sortAscending ? '↓↑排序' : '↑↓排序' }}</button>
-		</view>
+	<!-- 排序选项（仅图鉴页显示） -->
+	<view class="sort-options" v-if="activePage === 'pokedex'">
+		<text>属性</text>
+		<button class="sort-button" @click="toggleSort">{{ sortAscending ? '↓↑排序' : '↑↓排序' }}</button>
+	</view>
 		
 		<!-- 宝可梦网格 -->
 		<view v-if="activePage === 'pokedex'" class="pokemon-grid">
@@ -174,8 +174,49 @@
 			</view>
 		</view>
 
-		<!-- 我的 - 用户详情视图（嵌入首页，保留底部导航） -->
-		<view v-else-if="activePage === 'profile'" class="profile-container">
+	<!-- 对战训练页面 -->
+	<view v-else-if="activePage === 'battle'" class="battle-container">
+		<view class="battle-header">
+			<text class="battle-title">⚔️ 对战训练场</text>
+		</view>
+		
+		<view class="battle-content">
+			<view class="battle-welcome-card">
+				<view class="battle-welcome-icon">🎮</view>
+				<text class="battle-welcome-title">欢迎来到对战训练场！</text>
+				<text class="battle-welcome-desc">在这里提升您的宝可梦对战技巧</text>
+			</view>
+			
+			<view class="battle-modes">
+				<view class="battle-mode-card" @click="startQuickBattle">
+					<view class="battle-mode-icon">⚡</view>
+					<view class="battle-mode-title">快速对战</view>
+					<view class="battle-mode-desc">与AI进行快速对战练习</view>
+				</view>
+				
+				<view class="battle-mode-card" @click="startRankedBattle">
+					<view class="battle-mode-icon">🏆</view>
+					<view class="battle-mode-title">排位赛</view>
+					<view class="battle-mode-desc">挑战排位赛提升段位</view>
+				</view>
+				
+				<view class="battle-mode-card" @click="startTrainingMode">
+					<view class="battle-mode-icon">📚</view>
+					<view class="battle-mode-title">训练模式</view>
+					<view class="battle-mode-desc">学习对战技巧与策略</view>
+				</view>
+				
+				<view class="battle-mode-card" @click="viewBattleHistory">
+					<view class="battle-mode-icon">📊</view>
+					<view class="battle-mode-title">对战记录</view>
+					<view class="battle-mode-desc">查看您的对战历史</view>
+				</view>
+			</view>
+		</view>
+	</view>
+	
+	<!-- 我的 - 用户详情视图（嵌入首页，保留底部导航） -->
+	<view v-else-if="activePage === 'profile'" class="profile-container">
 			<view class="user-card">
 				<view class="avatar">
 					<image src="/static/xiaozhi.png" mode="aspectFit" />
@@ -224,12 +265,13 @@ export default {
 				sortAscending: true,
 				activePage: 'pokedex',
 				pokemonData: [],
-				navItems: [
-					{ page: 'pokedex', label: '图鉴' },
-					{ page: 'community', label: '社区' },
-					{ page: 'moves', label: '招式与特性' },
-					{ page: 'profile', label: '我的' }
-				],
+			navItems: [
+				{ page: 'pokedex', label: '图鉴' },
+				{ page: 'community', label: '社区' },
+				{ page: 'battle', label: '对战训练' },
+				{ page: 'moves', label: '招式与特性' },
+				{ page: 'profile', label: '我的' }
+			],
 				displayName: '训练师',
 				// 社区状态
 				communitySearch: '',
@@ -579,12 +621,27 @@ export default {
 				this.activePage = 'pokedex'
 				uni.showToast({ title: '已退出登录', icon: 'none' })
 			},
-			openFavorites() {
-				uni.showToast({ title: '我的收藏开发中', icon: 'none' })
-			},
-			openTeam() {
-				uni.showToast({ title: '我的队伍开发中', icon: 'none' })
-			},
+		openFavorites() {
+			uni.showToast({ title: '我的收藏开发中', icon: 'none' })
+		},
+		openTeam() {
+			uni.showToast({ title: '我的队伍开发中', icon: 'none' })
+		},
+		openBattleTraining() {
+			this.activePage = 'battle'
+		},
+		startQuickBattle() {
+			uni.navigateTo({ url: '/pages/battle/quick' })
+		},
+		startRankedBattle() {
+			uni.showToast({ title: '排位赛功能开发中', icon: 'none', duration: 2000 })
+		},
+		startTrainingMode() {
+			uni.showToast({ title: '训练模式功能开发中', icon: 'none', duration: 2000 })
+		},
+		viewBattleHistory() {
+			uni.showToast({ title: '对战记录功能开发中', icon: 'none', duration: 2000 })
+		},
 			generateBackgroundPattern() {
 				// 仅在 H5 生效，原生端忽略
 				try {
@@ -1315,4 +1372,130 @@ export default {
 .menu-title { font-weight: bold; margin-bottom: 6px; color: #333; font-size: 14px; }
 .menu-desc { font-size: 12px; color: #666; line-height: 1.4; }
 .logout-button { margin-top: 12px; display: inline-block; padding: 8px 14px; border-radius: 16px; color: #fff; background: #e74c3c; font-size: 14px; box-shadow: 0 2px 6px rgba(0,0,0,0.15); }
+
+/* 对战训练页面样式 */
+.battle-container {
+	padding: 15px;
+	min-height: calc(100vh - 90px);
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.battle-header {
+	text-align: center;
+	padding: 20px 0;
+	margin-bottom: 20px;
+}
+
+.battle-title {
+	font-size: 28px;
+	font-weight: bold;
+	color: white;
+	text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.battle-content {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.battle-welcome-card {
+	background: white;
+	border-radius: 20px;
+	padding: 30px 20px;
+	text-align: center;
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+	animation: slideInDown 0.6s ease-out;
+}
+
+@keyframes slideInDown {
+	from {
+		transform: translateY(-50px);
+		opacity: 0;
+	}
+	to {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+
+.battle-welcome-icon {
+	font-size: 60px;
+	margin-bottom: 15px;
+}
+
+.battle-welcome-title {
+	display: block;
+	font-size: 22px;
+	font-weight: bold;
+	color: #333;
+	margin-bottom: 10px;
+}
+
+.battle-welcome-desc {
+	display: block;
+	font-size: 14px;
+	color: #666;
+}
+
+.battle-modes {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 15px;
+}
+
+.battle-mode-card {
+	background: white;
+	border-radius: 16px;
+	padding: 20px 15px;
+	text-align: center;
+	box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+	transition: all 0.3s ease;
+	animation: fadeInUp 0.6s ease-out;
+	animation-fill-mode: both;
+	min-height: 140px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.battle-mode-card:nth-child(1) { animation-delay: 0.1s; }
+.battle-mode-card:nth-child(2) { animation-delay: 0.2s; }
+.battle-mode-card:nth-child(3) { animation-delay: 0.3s; }
+.battle-mode-card:nth-child(4) { animation-delay: 0.4s; }
+
+@keyframes fadeInUp {
+	from {
+		transform: translateY(30px);
+		opacity: 0;
+	}
+	to {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+
+.battle-mode-card:active {
+	transform: scale(0.95);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.battle-mode-icon {
+	font-size: 40px;
+	margin-bottom: 12px;
+}
+
+.battle-mode-title {
+	font-size: 16px;
+	font-weight: bold;
+	color: #333;
+	margin-bottom: 8px;
+}
+
+.battle-mode-desc {
+	font-size: 12px;
+	color: #666;
+	line-height: 1.4;
+}
 </style>

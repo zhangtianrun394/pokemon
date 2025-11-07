@@ -575,9 +575,12 @@ export async function fetchPokemonDetailOptimized(formsId) {
   
   try {
     // 步骤1: 获取form基础信息（必须先执行，因为需要pokemon_id和form_name）
+    // 不再查询 image 字段，图片通过 form_id 从存储桶加载
+    // 确保 formsId 是数字类型，因为数据库中的 forms_id 字段是整数
+    const numericFormsId = Number(formsId);
     const form = await uniGet('forms', { 
-      select: 'forms_id,pokemon_id,form_name,image,genus,height,weight,shape,color,types', 
-      forms_id: `eq.${formsId}`, 
+      select: 'forms_id,form_id,pokemon_id,form_name,genus,height,weight,shape,color,types', 
+      forms_id: `eq.${numericFormsId}`, 
       limit: 1 
     }).then(r => r[0]);
     
@@ -745,5 +748,307 @@ export async function fetchProfilesByIds(ids = []) {
   } catch (e) {
     console.warn('[profiles] 批量查询失败:', e && e.message ? e.message : e)
     return []
+  }
+}
+
+// --- 招式数据获取 ---
+
+// 获取所有招式（去重，每个招式名只显示一次）
+export async function fetchAllMoves() {
+  await initSupabaseEnv()
+  
+  try {
+    // 使用 DISTINCT ON 来去重，保证每个招式名只出现一次
+    const moves = await uniGet('moves', { 
+      select: 'move_id,move_name,type,category,accuracy,power,pp,flavor_text,id',
+      order: 'move_name.asc,move_id.asc'
+    })
+    
+    // 手动去重：只保留每个招式名的第一条记录
+    const seenMoves = new Set()
+    const uniqueMoves = []
+    
+    for (const move of moves) {
+      if (!seenMoves.has(move.move_name)) {
+        seenMoves.add(move.move_name)
+        uniqueMoves.push({
+          id: move.id || move.move_id,
+          name: move.move_name || '未知招式',
+          type: move.type || '一般',
+          category: move.category || '变化',
+          accuracy: move.accuracy || '-',
+          power: move.power || '-',
+          pp: move.pp || '-',
+          flavor_text: move.flavor_text || '',
+          priority: '0', // moves表中没有priority字段，默认为0
+          expanded: false
+        })
+      }
+    }
+    
+    console.log(`[招式数据] 获取到 ${uniqueMoves.length} 个去重后的招式`)
+    return uniqueMoves
+    
+  } catch (error) {
+    console.error('[招式数据] 获取失败:', error)
+    return []
+  }
+}
+
+// 分页获取招式数据
+export async function fetchMovesByPage(page = 1, pageSize = 50) {
+  await initSupabaseEnv()
+  
+  try {
+    const offset = (page - 1) * pageSize
+    
+    // 获取所有招式数据，按照moves表中的id顺序排序
+    const allMoves = await uniGet('moves', { 
+      select: 'move_id,move_name,type,category,accuracy,power,pp,flavor_text,id',
+      order: 'id.asc'
+    })
+    
+    // 手动去重：按照id顺序，如果name重复就跳过
+    const seenMoves = new Set()
+    const uniqueMoves = []
+    
+    for (const move of allMoves) {
+      if (!seenMoves.has(move.move_name)) {
+        seenMoves.add(move.move_name)
+        uniqueMoves.push({
+          id: move.id || move.move_id,
+          name: move.move_name || '未知招式',
+          type: move.type || '一般',
+          category: move.category || '变化',
+          accuracy: move.accuracy || '-',
+          power: move.power || '-',
+          pp: move.pp || '-',
+          flavor_text: move.flavor_text || '',
+          priority: '0',
+          expanded: false
+        })
+      }
+    }
+    
+    // 分页处理
+    const startIndex = offset
+    const endIndex = startIndex + pageSize
+    const pageMoves = uniqueMoves.slice(startIndex, endIndex)
+    const hasMore = endIndex < uniqueMoves.length
+    
+    console.log(`[招式分页] 第${page}页，获取到 ${pageMoves.length} 个招式，总数据量: ${uniqueMoves.length}，是否有更多: ${hasMore}`)
+    
+    return {
+      moves: pageMoves,
+      hasMore,
+      totalCount: uniqueMoves.length
+    }
+    
+  } catch (error) {
+    console.error('[招式分页] 获取失败:', error)
+    return {
+      moves: [],
+      hasMore: false,
+      totalCount: 0
+    }
+  }
+}
+
+// 获取招式详情（根据招式名）
+export async function fetchMoveByName(moveName) {
+  await initSupabaseEnv()
+  
+  try {
+    const moves = await uniGet('moves', { 
+      select: 'move_id,move_name,type,category,accuracy,power,pp,flavor_text,id',
+      move_name: `eq.${moveName}`,
+      limit: '1'
+    })
+    
+    if (moves && moves.length > 0) {
+      const move = moves[0]
+      return {
+        id: move.id || move.move_id,
+        name: move.move_name || '未知招式',
+        type: move.type || '一般',
+        category: move.category || '变化',
+        accuracy: move.accuracy || '-',
+        power: move.power || '-',
+        pp: move.pp || '-',
+        flavor_text: move.flavor_text || '',
+        priority: '0'
+      }
+    }
+    
+    return null
+    
+  } catch (error) {
+    console.error('[招式详情] 获取失败:', error)
+    return null
+  }
+}
+
+// 根据宝可梦ID获取其可学习的招式（只获取level_learned_at不为null的）
+export async function fetchMovesByPokemonId(pokemonId) {
+  await initSupabaseEnv()
+  
+  try {
+    console.log('[宝可梦招式] 开始查询，pokemon_id:', pokemonId)
+    
+    // 查询moves表，筛选条件：pokemon_id匹配且level_learned_at不为null
+    const moves = await uniGet('moves', { 
+      select: 'move_id,move_name,type,category,power,accuracy,pp,flavor_text,level_learned_at,id',
+      pokemon_id: `eq.${pokemonId}`,
+      level_learned_at: 'not.is.null',
+      order: 'level_learned_at.asc'
+    })
+    
+    console.log(`[宝可梦招式] 找到 ${moves.length} 个招式`)
+    
+    // 打印第一个招式的原始数据，用于调试
+    if (moves.length > 0) {
+      console.log('[宝可梦招式] 第一个招式原始数据:', JSON.stringify(moves[0]))
+    }
+    
+    // 中英文类型映射（双向映射）
+    const typeMapZh = {
+      'normal': '一般', 'fire': '火', 'water': '水', 'electric': '电',
+      'grass': '草', 'ice': '冰', 'fighting': '格斗', 'poison': '毒',
+      'ground': '地面', 'flying': '飞行', 'psychic': '超能力', 'bug': '虫',
+      'rock': '岩石', 'ghost': '幽灵', 'dragon': '龙', 'dark': '恶',
+      'steel': '钢', 'fairy': '妖精'
+    }
+    
+    const typeMapEn = {
+      '一般': 'normal', '火': 'fire', '水': 'water', '电': 'electric',
+      '草': 'grass', '冰': 'ice', '格斗': 'fighting', '毒': 'poison',
+      '地面': 'ground', '飞行': 'flying', '超能力': 'psychic', '虫': 'bug',
+      '岩石': 'rock', '幽灵': 'ghost', '龙': 'dragon', '恶': 'dark',
+      '钢': 'steel', '妖精': 'fairy'
+    }
+    
+    // 分类映射（双向映射）
+    const categoryMapZh = {
+      'physical': '物理',
+      'special': '特殊',
+      'status': '变化'
+    }
+    
+    const categoryMapEn = {
+      '物理': 'physical',
+      '特殊': 'special',
+      '变化': 'status'
+    }
+    
+    // 转换数据格式
+    const formattedMoves = moves.map(move => {
+      // 智能识别类型字段（支持中文和英文）
+      const rawType = (move.type || 'normal').trim()
+      let typeEn, typeZh
+      
+      // 判断是中文还是英文
+      if (typeMapEn[rawType]) {
+        // 数据库中是中文
+        typeZh = rawType
+        typeEn = typeMapEn[rawType]
+      } else {
+        // 数据库中是英文（转小写）
+        typeEn = rawType.toLowerCase()
+        typeZh = typeMapZh[typeEn] || rawType
+      }
+      
+      // 智能识别分类字段
+      const rawCategory = (move.category || 'status').trim()
+      let categoryEn, categoryZh
+      
+      if (categoryMapEn[rawCategory]) {
+        // 数据库中是中文
+        categoryZh = rawCategory
+        categoryEn = categoryMapEn[rawCategory]
+      } else {
+        // 数据库中是英文（转小写）
+        categoryEn = rawCategory.toLowerCase()
+        categoryZh = categoryMapZh[categoryEn] || rawCategory
+      }
+      
+      return {
+        id: move.id || move.move_id,
+        name: move.move_name || '未知招式',
+        typeZh: typeZh,
+        typeEn: typeEn,
+        categoryZh: categoryZh,
+        categoryEn: categoryEn,
+        power: move.power || null,
+        accuracy: move.accuracy || null,
+        pp: move.pp || null,
+        priority: 0, // moves表没有这个字段，默认为0
+        description: move.flavor_text || '暂无描述',
+        level: move.level_learned_at || '-'
+      }
+    })
+    
+    // 打印格式化后的数据，用于调试
+    if (formattedMoves.length > 0) {
+      console.log('[宝可梦招式] 第一个招式格式化数据:', JSON.stringify(formattedMoves[0]))
+    }
+    
+    return formattedMoves
+    
+  } catch (error) {
+    console.error('[宝可梦招式] 获取失败:', error)
+    return []
+  }
+}
+
+// 分页获取特性数据
+export async function fetchAbilitiesByPage(page = 1, pageSize = 50) {
+  await initSupabaseEnv()
+  
+  try {
+    const offset = (page - 1) * pageSize
+    
+    // 获取所有特性数据，按照abilities表中的ability_id顺序排序
+    const allAbilities = await uniGet('abilities', { 
+      select: 'ability_id,name,description',
+      order: 'ability_id.asc'
+    })
+    
+    // 手动去重：按照ability_id顺序，如果name重复就跳过
+    const seenAbilities = new Set()
+    const uniqueAbilities = []
+    
+    for (const ability of allAbilities) {
+      if (!seenAbilities.has(ability.name)) {
+        seenAbilities.add(ability.name)
+        uniqueAbilities.push({
+          id: ability.ability_id,
+          name: ability.name || '未知特性',
+          description: ability.description || '暂无描述',
+          expanded: false
+        })
+      }
+    }
+    
+    // 分页处理
+    const startIndex = offset
+    const endIndex = startIndex + pageSize
+    const pageAbilities = uniqueAbilities.slice(startIndex, endIndex)
+    const hasMore = endIndex < uniqueAbilities.length
+    
+    console.log(`[特性分页] 第${page}页，获取到 ${pageAbilities.length} 个特性，总数据量: ${uniqueAbilities.length}，是否有更多: ${hasMore}`)
+    
+    return {
+      abilities: pageAbilities,
+      hasMore,
+      totalCount: uniqueAbilities.length
+    }
+    
+  } catch (error) {
+    console.error('[特性分页] 获取失败:', error)
+    return {
+      abilities: [],
+      hasMore: false,
+      totalCount: 0
+    }
   }
 }

@@ -55,6 +55,24 @@
 				"navigationBarBackgroundColor": "#1D3557",
 				"navigationBarTextStyle": "white"
 			}
+		},
+		{
+			"path": "pages/battle/quick",
+			"style": {
+				"navigationStyle": "custom",
+				"navigationBarTitleText": "快速对战",
+				"enablePullDownRefresh": false,
+				"backgroundColor": "#667eea"
+			}
+		},
+		{
+			"path": "pages/moves/detail",
+			"style": {
+				"navigationStyle": "custom",
+				"navigationBarTitleText": "技能招式",
+				"enablePullDownRefresh": false,
+				"backgroundColor": "#f5f7fa"
+			}
 		}
 	],
 	"globalStyle": {

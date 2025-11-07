@@ -8,9 +8,9 @@ import {
   browser_default,
   browser_exports,
   init_browser
-} from "./chunk-NCJP3WJT.js";
+} from "./chunk-ET6GG6UW.js";
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/tslib/tslib.es6.mjs
+// ../../../../../宝可梦图鉴 社区版/node_modules/tslib/tslib.es6.mjs
 var tslib_es6_exports = {};
 __export(tslib_es6_exports, {
   __addDisposableResource: () => __addDisposableResource,
@@ -511,7 +511,7 @@ function __rewriteRelativeImportExtension(path, preserveJsx) {
 }
 var extendStatics, __assign, __createBinding, __setModuleDefault, ownKeys, _SuppressedError, tslib_es6_default;
 var init_tslib_es6 = __esm({
-  "../../../../../宝可梦图鉴 - 副本 (2)/node_modules/tslib/tslib.es6.mjs"() {
+  "../../../../../宝可梦图鉴 社区版/node_modules/tslib/tslib.es6.mjs"() {
     extendStatics = function(d, b) {
       extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(d2, b2) {
         d2.__proto__ = b2;
@@ -605,9 +605,9 @@ var init_tslib_es6 = __esm({
   }
 });
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/postgrest-js/dist/cjs/PostgrestError.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/postgrest-js/dist/cjs/PostgrestError.js
 var require_PostgrestError = __commonJS({
-  "../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/postgrest-js/dist/cjs/PostgrestError.js"(exports) {
+  "../../../../../宝可梦图鉴 社区版/node_modules/@supabase/postgrest-js/dist/cjs/PostgrestError.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var PostgrestError2 = class extends Error {
@@ -623,9 +623,9 @@ var require_PostgrestError = __commonJS({
   }
 });
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/postgrest-js/dist/cjs/PostgrestBuilder.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/postgrest-js/dist/cjs/PostgrestBuilder.js
 var require_PostgrestBuilder = __commonJS({
-  "../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/postgrest-js/dist/cjs/PostgrestBuilder.js"(exports) {
+  "../../../../../宝可梦图鉴 社区版/node_modules/@supabase/postgrest-js/dist/cjs/PostgrestBuilder.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
@@ -824,9 +824,9 @@ var require_PostgrestBuilder = __commonJS({
   }
 });
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/postgrest-js/dist/cjs/PostgrestTransformBuilder.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/postgrest-js/dist/cjs/PostgrestTransformBuilder.js
 var require_PostgrestTransformBuilder = __commonJS({
-  "../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/postgrest-js/dist/cjs/PostgrestTransformBuilder.js"(exports) {
+  "../../../../../宝可梦图鉴 社区版/node_modules/@supabase/postgrest-js/dist/cjs/PostgrestTransformBuilder.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
@@ -1041,9 +1041,9 @@ var require_PostgrestTransformBuilder = __commonJS({
   }
 });
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/postgrest-js/dist/cjs/PostgrestFilterBuilder.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/postgrest-js/dist/cjs/PostgrestFilterBuilder.js
 var require_PostgrestFilterBuilder = __commonJS({
-  "../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/postgrest-js/dist/cjs/PostgrestFilterBuilder.js"(exports) {
+  "../../../../../宝可梦图鉴 社区版/node_modules/@supabase/postgrest-js/dist/cjs/PostgrestFilterBuilder.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
@@ -1406,9 +1406,9 @@ var require_PostgrestFilterBuilder = __commonJS({
   }
 });
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/postgrest-js/dist/cjs/PostgrestQueryBuilder.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/postgrest-js/dist/cjs/PostgrestQueryBuilder.js
 var require_PostgrestQueryBuilder = __commonJS({
-  "../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/postgrest-js/dist/cjs/PostgrestQueryBuilder.js"(exports) {
+  "../../../../../宝可梦图鉴 社区版/node_modules/@supabase/postgrest-js/dist/cjs/PostgrestQueryBuilder.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
@@ -1657,9 +1657,9 @@ var require_PostgrestQueryBuilder = __commonJS({
   }
 });
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/postgrest-js/dist/cjs/PostgrestClient.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/postgrest-js/dist/cjs/PostgrestClient.js
 var require_PostgrestClient = __commonJS({
-  "../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/postgrest-js/dist/cjs/PostgrestClient.js"(exports) {
+  "../../../../../宝可梦图鉴 社区版/node_modules/@supabase/postgrest-js/dist/cjs/PostgrestClient.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
@@ -1764,9 +1764,9 @@ var require_PostgrestClient = __commonJS({
   }
 });
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/postgrest-js/dist/cjs/index.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/postgrest-js/dist/cjs/index.js
 var require_cjs = __commonJS({
-  "../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/postgrest-js/dist/cjs/index.js"(exports) {
+  "../../../../../宝可梦图鉴 社区版/node_modules/@supabase/postgrest-js/dist/cjs/index.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.PostgrestError = exports.PostgrestBuilder = exports.PostgrestTransformBuilder = exports.PostgrestFilterBuilder = exports.PostgrestQueryBuilder = exports.PostgrestClient = void 0;
@@ -1794,23 +1794,23 @@ var require_cjs = __commonJS({
   }
 });
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/functions-js/dist/module/FunctionsClient.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/functions-js/dist/module/FunctionsClient.js
 init_tslib_es6();
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/functions-js/dist/module/helper.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/functions-js/dist/module/helper.js
 var resolveFetch = (customFetch) => {
   let _fetch;
   if (customFetch) {
     _fetch = customFetch;
   } else if (typeof fetch === "undefined") {
-    _fetch = (...args) => import("./browser-G3KPL52Z.js").then(({ default: fetch2 }) => fetch2(...args));
+    _fetch = (...args) => import("./browser-WMMKK7EB.js").then(({ default: fetch2 }) => fetch2(...args));
   } else {
     _fetch = fetch;
   }
   return (...args) => _fetch(...args);
 };
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/functions-js/dist/module/types.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/functions-js/dist/module/types.js
 var FunctionsError = class extends Error {
   constructor(message, name = "FunctionsError", context) {
     super(message);
@@ -1852,7 +1852,7 @@ var FunctionRegion;
   FunctionRegion2["UsWest2"] = "us-west-2";
 })(FunctionRegion || (FunctionRegion = {}));
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/functions-js/dist/module/FunctionsClient.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/functions-js/dist/module/FunctionsClient.js
 var FunctionsClient = class {
   constructor(url, { headers = {}, customFetch, region = FunctionRegion.Any } = {}) {
     this.url = url;
@@ -1954,7 +1954,7 @@ var FunctionsClient = class {
   }
 };
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/postgrest-js/dist/esm/wrapper.mjs
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/postgrest-js/dist/esm/wrapper.mjs
 var index = __toESM(require_cjs(), 1);
 var {
   PostgrestClient,
@@ -1965,7 +1965,7 @@ var {
   PostgrestError
 } = index.default || index;
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
 var WebSocketFactory = class {
   static detectEnvironment() {
     var _a2;
@@ -2048,10 +2048,10 @@ Suggested solution: ${env.workaround}`;
 };
 var websocket_factory_default = WebSocketFactory;
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/realtime-js/dist/module/lib/version.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/realtime-js/dist/module/lib/version.js
 var version = "2.78.0";
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/realtime-js/dist/module/lib/constants.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/realtime-js/dist/module/lib/constants.js
 var DEFAULT_VERSION = `realtime-js/${version}`;
 var VSN = "1.0.0";
 var DEFAULT_TIMEOUT = 1e4;
@@ -2093,7 +2093,7 @@ var CONNECTION_STATE;
   CONNECTION_STATE2["Closed"] = "closed";
 })(CONNECTION_STATE || (CONNECTION_STATE = {}));
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/realtime-js/dist/module/lib/serializer.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/realtime-js/dist/module/lib/serializer.js
 var Serializer = class {
   constructor() {
     this.HEADER_LENGTH = 1;
@@ -2125,7 +2125,7 @@ var Serializer = class {
   }
 };
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/realtime-js/dist/module/lib/timer.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/realtime-js/dist/module/lib/timer.js
 var Timer = class {
   constructor(callback, timerCalc) {
     this.callback = callback;
@@ -2150,7 +2150,7 @@ var Timer = class {
   }
 };
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/realtime-js/dist/module/lib/transformers.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/realtime-js/dist/module/lib/transformers.js
 var PostgresTypes;
 (function(PostgresTypes2) {
   PostgresTypes2["abstime"] = "abstime";
@@ -2307,7 +2307,7 @@ var httpEndpointURL = (socketUrl) => {
   return wsUrl.href;
 };
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/realtime-js/dist/module/lib/push.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/realtime-js/dist/module/lib/push.js
 var Push = class {
   /**
    * Initializes the Push
@@ -2406,7 +2406,7 @@ var Push = class {
   }
 };
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/realtime-js/dist/module/RealtimePresence.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/realtime-js/dist/module/RealtimePresence.js
 var REALTIME_PRESENCE_LISTEN_EVENTS;
 (function(REALTIME_PRESENCE_LISTEN_EVENTS2) {
   REALTIME_PRESENCE_LISTEN_EVENTS2["SYNC"] = "sync";
@@ -2630,7 +2630,7 @@ var RealtimePresence = class _RealtimePresence {
   }
 };
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/realtime-js/dist/module/RealtimeChannel.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/realtime-js/dist/module/RealtimeChannel.js
 var REALTIME_POSTGRES_CHANGES_LISTEN_EVENT;
 (function(REALTIME_POSTGRES_CHANGES_LISTEN_EVENT2) {
   REALTIME_POSTGRES_CHANGES_LISTEN_EVENT2["ALL"] = "*";
@@ -3178,7 +3178,7 @@ var RealtimeChannel = class _RealtimeChannel {
   }
 };
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/realtime-js/dist/module/RealtimeClient.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/realtime-js/dist/module/RealtimeClient.js
 var noop2 = () => {
 };
 var CONNECTION_TIMEOUTS = {
@@ -3250,7 +3250,7 @@ var RealtimeClient = class {
       if (customFetch) {
         _fetch = customFetch;
       } else if (typeof fetch === "undefined") {
-        _fetch = (...args) => import("./browser-G3KPL52Z.js").then(({ default: fetch2 }) => fetch2(...args)).catch((error) => {
+        _fetch = (...args) => import("./browser-WMMKK7EB.js").then(({ default: fetch2 }) => fetch2(...args)).catch((error) => {
           throw new Error(`Failed to load @supabase/node-fetch: ${error.message}. This is required for HTTP requests in Node.js environments without native fetch.`);
         });
       } else {
@@ -3834,10 +3834,10 @@ Option 2: Install and provide the "ws" package:
   }
 };
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/storage-js/dist/module/packages/StorageFileApi.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/storage-js/dist/module/packages/StorageFileApi.js
 init_tslib_es6();
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/storage-js/dist/module/lib/errors.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/storage-js/dist/module/lib/errors.js
 var StorageError = class extends Error {
   constructor(message) {
     super(message);
@@ -3872,17 +3872,17 @@ var StorageUnknownError = class extends StorageError {
   }
 };
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/storage-js/dist/module/lib/fetch.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/storage-js/dist/module/lib/fetch.js
 init_tslib_es6();
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/storage-js/dist/module/lib/helpers.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/storage-js/dist/module/lib/helpers.js
 init_tslib_es6();
 var resolveFetch2 = (customFetch) => {
   let _fetch;
   if (customFetch) {
     _fetch = customFetch;
   } else if (typeof fetch === "undefined") {
-    _fetch = (...args) => import("./browser-G3KPL52Z.js").then(({ default: fetch2 }) => fetch2(...args));
+    _fetch = (...args) => import("./browser-WMMKK7EB.js").then(({ default: fetch2 }) => fetch2(...args));
   } else {
     _fetch = fetch;
   }
@@ -3890,7 +3890,7 @@ var resolveFetch2 = (customFetch) => {
 };
 var resolveResponse = () => __awaiter(void 0, void 0, void 0, function* () {
   if (typeof Response === "undefined") {
-    return (yield import("./browser-G3KPL52Z.js")).Response;
+    return (yield import("./browser-WMMKK7EB.js")).Response;
   }
   return Response;
 });
@@ -3915,7 +3915,7 @@ var isPlainObject = (value) => {
   return (prototype === null || prototype === Object.prototype || Object.getPrototypeOf(prototype) === null) && !(Symbol.toStringTag in value) && !(Symbol.iterator in value);
 };
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/storage-js/dist/module/lib/fetch.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/storage-js/dist/module/lib/fetch.js
 var _getErrorMessage = (err) => {
   var _a2;
   return err.msg || err.message || err.error_description || (typeof err.error === "string" ? err.error : (_a2 = err.error) === null || _a2 === void 0 ? void 0 : _a2.message) || JSON.stringify(err);
@@ -3989,10 +3989,10 @@ function remove(fetcher, url, body, options, parameters) {
   });
 }
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/storage-js/dist/module/packages/BlobDownloadBuilder.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/storage-js/dist/module/packages/BlobDownloadBuilder.js
 init_tslib_es6();
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/storage-js/dist/module/packages/StreamDownloadBuilder.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/storage-js/dist/module/packages/StreamDownloadBuilder.js
 init_tslib_es6();
 var StreamDownloadBuilder = class {
   constructor(downloadFn, shouldThrowOnError) {
@@ -4023,7 +4023,7 @@ var StreamDownloadBuilder = class {
   }
 };
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/storage-js/dist/module/packages/BlobDownloadBuilder.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/storage-js/dist/module/packages/BlobDownloadBuilder.js
 var _a;
 var BlobDownloadBuilder = class {
   constructor(downloadFn, shouldThrowOnError) {
@@ -4073,7 +4073,7 @@ var BlobDownloadBuilder = class {
 _a = Symbol.toStringTag;
 var BlobDownloadBuilder_default = BlobDownloadBuilder;
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/storage-js/dist/module/packages/StorageFileApi.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/storage-js/dist/module/packages/StorageFileApi.js
 var DEFAULT_SEARCH_OPTIONS = {
   limit: 100,
   offset: 0,
@@ -4624,18 +4624,18 @@ var StorageFileApi = class {
   }
 };
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/storage-js/dist/module/packages/StorageBucketApi.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/storage-js/dist/module/packages/StorageBucketApi.js
 init_tslib_es6();
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/storage-js/dist/module/lib/version.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/storage-js/dist/module/lib/version.js
 var version2 = "2.78.0";
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/storage-js/dist/module/lib/constants.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/storage-js/dist/module/lib/constants.js
 var DEFAULT_HEADERS = {
   "X-Client-Info": `storage-js/${version2}`
 };
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/storage-js/dist/module/packages/StorageBucketApi.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/storage-js/dist/module/packages/StorageBucketApi.js
 var StorageBucketApi = class {
   constructor(url, headers = {}, fetch2, opts) {
     this.shouldThrowOnError = false;
@@ -4840,7 +4840,7 @@ var StorageBucketApi = class {
   }
 };
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/storage-js/dist/module/packages/StorageAnalyticsApi.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/storage-js/dist/module/packages/StorageAnalyticsApi.js
 init_tslib_es6();
 var StorageAnalyticsApi = class {
   /**
@@ -4990,19 +4990,19 @@ var StorageAnalyticsApi = class {
   }
 };
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/storage-js/dist/module/lib/vectors/StorageVectorsClient.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/storage-js/dist/module/lib/vectors/StorageVectorsClient.js
 init_tslib_es6();
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/storage-js/dist/module/lib/vectors/VectorIndexApi.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/storage-js/dist/module/lib/vectors/VectorIndexApi.js
 init_tslib_es6();
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/storage-js/dist/module/lib/vectors/constants.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/storage-js/dist/module/lib/vectors/constants.js
 var DEFAULT_HEADERS2 = {
   "X-Client-Info": `storage-js/${version2}`,
   "Content-Type": "application/json"
 };
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/storage-js/dist/module/lib/vectors/errors.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/storage-js/dist/module/lib/vectors/errors.js
 var StorageVectorsError = class extends Error {
   constructor(message) {
     super(message);
@@ -5046,17 +5046,17 @@ var StorageVectorsErrorCode;
   StorageVectorsErrorCode2["S3VectorMaxIndexesExceeded"] = "S3VectorMaxIndexesExceeded";
 })(StorageVectorsErrorCode || (StorageVectorsErrorCode = {}));
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/storage-js/dist/module/lib/vectors/fetch.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/storage-js/dist/module/lib/vectors/fetch.js
 init_tslib_es6();
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/storage-js/dist/module/lib/vectors/helpers.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/storage-js/dist/module/lib/vectors/helpers.js
 init_tslib_es6();
 var resolveFetch3 = (customFetch) => {
   let _fetch;
   if (customFetch) {
     _fetch = customFetch;
   } else if (typeof fetch === "undefined") {
-    _fetch = (...args) => import("./browser-G3KPL52Z.js").then(({ default: fetch2 }) => fetch2(...args));
+    _fetch = (...args) => import("./browser-WMMKK7EB.js").then(({ default: fetch2 }) => fetch2(...args));
   } else {
     _fetch = fetch;
   }
@@ -5070,7 +5070,7 @@ var isPlainObject2 = (value) => {
   return (prototype === null || prototype === Object.prototype || Object.getPrototypeOf(prototype) === null) && !(Symbol.toStringTag in value) && !(Symbol.iterator in value);
 };
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/storage-js/dist/module/lib/vectors/fetch.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/storage-js/dist/module/lib/vectors/fetch.js
 var _getErrorMessage2 = (err) => err.msg || err.message || err.error_description || err.error || JSON.stringify(err);
 var handleError2 = (error, reject, options) => __awaiter(void 0, void 0, void 0, function* () {
   const isResponseLike = error && typeof error === "object" && "status" in error && "ok" in error && typeof error.status === "number";
@@ -5131,7 +5131,7 @@ function post2(fetcher, url, body, options, parameters) {
   });
 }
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/storage-js/dist/module/lib/vectors/VectorIndexApi.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/storage-js/dist/module/lib/vectors/VectorIndexApi.js
 var VectorIndexApi = class {
   constructor(url, headers = {}, fetch2) {
     this.shouldThrowOnError = false;
@@ -5334,7 +5334,7 @@ var VectorIndexApi = class {
   }
 };
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/storage-js/dist/module/lib/vectors/VectorDataApi.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/storage-js/dist/module/lib/vectors/VectorDataApi.js
 init_tslib_es6();
 var VectorDataApi = class {
   constructor(url, headers = {}, fetch2) {
@@ -5652,7 +5652,7 @@ var VectorDataApi = class {
   }
 };
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/storage-js/dist/module/lib/vectors/VectorBucketApi.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/storage-js/dist/module/lib/vectors/VectorBucketApi.js
 init_tslib_es6();
 var VectorBucketApi = class {
   /**
@@ -5837,7 +5837,7 @@ var VectorBucketApi = class {
   }
 };
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/storage-js/dist/module/lib/vectors/StorageVectorsClient.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/storage-js/dist/module/lib/vectors/StorageVectorsClient.js
 var StorageVectorsClient = class extends VectorBucketApi {
   constructor(url, options = {}) {
     super(url, options.headers || {}, options.fetch);
@@ -6131,7 +6131,7 @@ var VectorIndexScope = class extends VectorDataApi {
   }
 };
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/storage-js/dist/module/StorageClient.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/storage-js/dist/module/StorageClient.js
 var StorageClient = class extends StorageBucketApi {
   constructor(url, headers = {}, fetch2, opts) {
     super(url, headers, fetch2, opts);
@@ -6179,10 +6179,10 @@ var StorageClient = class extends StorageBucketApi {
   }
 };
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/supabase-js/dist/module/lib/version.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/supabase-js/dist/module/lib/version.js
 var version3 = "2.78.0";
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/supabase-js/dist/module/lib/constants.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/supabase-js/dist/module/lib/constants.js
 var JS_ENV = "";
 if (typeof Deno !== "undefined") {
   JS_ENV = "deno";
@@ -6208,7 +6208,7 @@ var DEFAULT_AUTH_OPTIONS = {
 };
 var DEFAULT_REALTIME_OPTIONS = {};
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/supabase-js/dist/module/lib/fetch.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/supabase-js/dist/module/lib/fetch.js
 init_browser();
 var resolveFetch4 = (customFetch) => {
   let _fetch;
@@ -6244,7 +6244,7 @@ var fetchWithAuth = (supabaseKey, getAccessToken, customFetch) => {
   };
 };
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/supabase-js/dist/module/lib/helpers.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/supabase-js/dist/module/lib/helpers.js
 function ensureTrailingSlash(url) {
   return url.endsWith("/") ? url : url + "/";
 }
@@ -6282,16 +6282,16 @@ function validateSupabaseUrl(supabaseUrl) {
   }
 }
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/auth-js/dist/module/GoTrueAdminApi.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/auth-js/dist/module/GoTrueAdminApi.js
 init_tslib_es6();
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/auth-js/dist/module/lib/fetch.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/auth-js/dist/module/lib/fetch.js
 init_tslib_es6();
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/auth-js/dist/module/lib/version.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/auth-js/dist/module/lib/version.js
 var version4 = "2.78.0";
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/auth-js/dist/module/lib/constants.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/auth-js/dist/module/lib/constants.js
 var AUTO_REFRESH_TICK_DURATION_MS = 30 * 1e3;
 var AUTO_REFRESH_TICK_THRESHOLD = 3;
 var EXPIRY_MARGIN_MS = AUTO_REFRESH_TICK_THRESHOLD * AUTO_REFRESH_TICK_DURATION_MS;
@@ -6308,7 +6308,7 @@ var API_VERSIONS = {
 var BASE64URL_REGEX = /^([a-z0-9_-]{4})*($|[a-z0-9_-]{3}$|[a-z0-9_-]{2}$)$/i;
 var JWKS_TTL = 10 * 60 * 1e3;
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/auth-js/dist/module/lib/errors.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/auth-js/dist/module/lib/errors.js
 var AuthError = class extends Error {
   constructor(message, status, code) {
     super(message);
@@ -6420,7 +6420,7 @@ var AuthInvalidJwtError = class extends CustomAuthError {
   }
 };
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/auth-js/dist/module/lib/base64url.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/auth-js/dist/module/lib/base64url.js
 var TO_BASE64URL = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_".split("");
 var IGNORE_BASE64URL = " 	\n\r=".split("");
 var FROM_BASE64URL = (() => {
@@ -6582,7 +6582,7 @@ function bytesToBase64URL(bytes) {
   return result.join("");
 }
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/auth-js/dist/module/lib/helpers.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/auth-js/dist/module/lib/helpers.js
 function expiresAt(expiresIn) {
   const timeNow = Math.round(Date.now() / 1e3);
   return timeNow + expiresIn;
@@ -6646,7 +6646,7 @@ var resolveFetch5 = (customFetch) => {
   if (customFetch) {
     _fetch = customFetch;
   } else if (typeof fetch === "undefined") {
-    _fetch = (...args) => import("./browser-G3KPL52Z.js").then(({ default: fetch2 }) => fetch2(...args));
+    _fetch = (...args) => import("./browser-WMMKK7EB.js").then(({ default: fetch2 }) => fetch2(...args));
   } else {
     _fetch = fetch;
   }
@@ -6872,7 +6872,7 @@ function deepClone(obj) {
   return JSON.parse(JSON.stringify(obj));
 }
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/auth-js/dist/module/lib/fetch.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/auth-js/dist/module/lib/fetch.js
 var _getErrorMessage3 = (err) => err.msg || err.message || err.error_description || err.error || JSON.stringify(err);
 var NETWORK_ERROR_CODES = [502, 503, 504];
 async function handleError3(error) {
@@ -7009,10 +7009,10 @@ function hasSession(data) {
   return data.access_token && data.refresh_token && data.expires_in;
 }
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/auth-js/dist/module/lib/types.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/auth-js/dist/module/lib/types.js
 var SIGN_OUT_SCOPES = ["global", "local", "others"];
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/auth-js/dist/module/GoTrueAdminApi.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/auth-js/dist/module/GoTrueAdminApi.js
 var GoTrueAdminApi = class {
   constructor({ url = "", headers = {}, fetch: fetch2 }) {
     this.url = url;
@@ -7416,7 +7416,7 @@ var GoTrueAdminApi = class {
   }
 };
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/auth-js/dist/module/lib/local-storage.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/auth-js/dist/module/lib/local-storage.js
 function memoryLocalStorageAdapter(store = {}) {
   return {
     getItem: (key) => {
@@ -7431,7 +7431,7 @@ function memoryLocalStorageAdapter(store = {}) {
   };
 }
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/auth-js/dist/module/lib/locks.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/auth-js/dist/module/lib/locks.js
 var internals = {
   /**
    * @experimental
@@ -7531,7 +7531,7 @@ async function processLock(name, acquireTimeout, fn) {
   return await currentOperation;
 }
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/auth-js/dist/module/lib/polyfills.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/auth-js/dist/module/lib/polyfills.js
 function polyfillGlobalThis() {
   if (typeof globalThis === "object")
     return;
@@ -7551,7 +7551,7 @@ function polyfillGlobalThis() {
   }
 }
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/auth-js/dist/module/lib/web3/ethereum.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/auth-js/dist/module/lib/web3/ethereum.js
 function getAddress(address) {
   if (!/^0x[a-fA-F0-9]{40}$/.test(address)) {
     throw new Error(`@supabase/auth-js: Address "${address}" is invalid.`);
@@ -7619,10 +7619,10 @@ Request ID: ${requestId}`;
 ${suffix}`;
 }
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/auth-js/dist/module/lib/webauthn.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/auth-js/dist/module/lib/webauthn.js
 init_tslib_es6();
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/auth-js/dist/module/lib/webauthn.errors.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/auth-js/dist/module/lib/webauthn.errors.js
 var WebAuthnError = class extends Error {
   constructor({ message, code, cause, name }) {
     var _a2;
@@ -7790,7 +7790,7 @@ function identifyAuthenticationError({ error, options }) {
   });
 }
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/auth-js/dist/module/lib/webauthn.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/auth-js/dist/module/lib/webauthn.js
 var WebAuthnAbortService = class {
   /**
    * Create an abort signal for a new WebAuthn operation.
@@ -8303,7 +8303,7 @@ var WebAuthnApi = class {
   }
 };
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/auth-js/dist/module/GoTrueClient.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/auth-js/dist/module/GoTrueClient.js
 polyfillGlobalThis();
 var DEFAULT_OPTIONS = {
   url: GOTRUE_URL,
@@ -10669,22 +10669,22 @@ var GoTrueClient = class _GoTrueClient {
 GoTrueClient.nextInstanceID = 0;
 var GoTrueClient_default = GoTrueClient;
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/auth-js/dist/module/AuthAdminApi.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/auth-js/dist/module/AuthAdminApi.js
 var AuthAdminApi = GoTrueAdminApi;
 var AuthAdminApi_default = AuthAdminApi;
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/auth-js/dist/module/AuthClient.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/auth-js/dist/module/AuthClient.js
 var AuthClient = GoTrueClient_default;
 var AuthClient_default = AuthClient;
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/supabase-js/dist/module/lib/SupabaseAuthClient.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/supabase-js/dist/module/lib/SupabaseAuthClient.js
 var SupabaseAuthClient = class extends AuthClient_default {
   constructor(options) {
     super(options);
   }
 };
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/supabase-js/dist/module/SupabaseClient.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/supabase-js/dist/module/SupabaseClient.js
 var SupabaseClient = class {
   /**
    * Create a new client for use in the browser.
@@ -10886,7 +10886,7 @@ var SupabaseClient = class {
   }
 };
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/supabase-js/dist/module/index.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/supabase-js/dist/module/index.js
 var createClient = (supabaseUrl, supabaseKey, options) => {
   return new SupabaseClient(supabaseUrl, supabaseKey, options);
 };

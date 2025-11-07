@@ -39,92 +39,117 @@
 		</view>
 
 		<!-- 列表内容 -->
-		<scroll-view class="list-container" scroll-y>
-			<!-- 招式列表 -->
-			<view v-if="!isAbilityList" v-for="(item, index) in filteredMoveList" :key="'move-' + index" class="move-card">
-				<text class="move-index">{{ item.id }}</text>
-				<view class="move-info">
-					<view class="move-header" @click="toggleExpand(index, 'move')">
-						<text class="move-name">{{ item.name }}</text>
-						<view class="move-tags">
-							<view :class="['type-tag', item.type]">{{ item.type }}</view>
-							<view class="category-tag">
-								<!-- 物理（物攻）使用爆炸图标 -->
-								<view v-if="item.category === '物理'" class="physical-icon">💥</view>
-								<!-- 特殊（特攻）使用三个圈圈图标 -->
-								<view v-if="item.category === '特殊'" class="special-icon">🌀</view>
-								<!-- 变化使用太极图标 -->
-								<view v-if="item.category === '变化'" class="change-icon">☯️</view>
-							</view>
-							<!-- 展开箭头 -->
-							<view class="expand-arrow" :class="{ expanded: item.expanded }">
-								<text>▼</text>
-							</view>
+	<scroll-view class="list-container" scroll-y @scrolltolower="onScrollToLower" :scroll-top="scrollTop" lower-threshold="50" upper-threshold="0" @scroll="onScroll" scroll-with-animation="false">
+		<!-- 招式列表 -->
+		<view v-if="!isAbilityList" v-for="(item, index) in filteredMoveList" :key="'move-' + index" class="move-card">
+			<text class="move-index">{{ item.id }}</text>
+			<view class="move-info">
+				<view class="move-header" @click="toggleExpand(index, 'move')">
+					<text class="move-name">{{ item.name }}</text>
+					<view class="move-tags">
+						<view :class="['type-tag', item.type]">{{ item.type }}</view>
+						<view class="category-tag">
+							<!-- 物理（物攻）使用爆炸图标 -->
+							<view v-if="item.category === '物理'" class="physical-icon">💥</view>
+							<!-- 特殊（特攻）使用三个圈圈图标 -->
+							<view v-if="item.category === '特殊'" class="special-icon">🌀</view>
+							<!-- 变化使用太极图标 -->
+							<view v-if="item.category === '变化'" class="change-icon">☯️</view>
+						</view>
+						<!-- 展开箭头 -->
+						<view class="expand-arrow" :class="{ expanded: item.expanded }">
+							<text>▼</text>
 						</view>
 					</view>
-					<text class="move-stats">威力：{{ item.power }} 命中：{{ item.accuracy }} PP:{{ item.pp }} 优先：{{ item.priority }}</text>
-					
-					<!-- 展开栏 -->
-					<view v-if="item.expanded" class="expand-panel">
-						<view class="expand-content">
-							<text class="expand-title">招式说明</text>
-							<text class="expand-description">{{ getMoveDescription(item) }}</text>
-							<view class="expand-details">
-								<view class="detail-item">
-									<text class="detail-label">属性：</text>
-									<text class="detail-value">{{ item.type }}</text>
-								</view>
-								<view class="detail-item">
-									<text class="detail-label">分类：</text>
-									<text class="detail-value">{{ item.category }}</text>
-								</view>
-								<view class="detail-item">
-									<text class="detail-label">威力：</text>
-									<text class="detail-value">{{ item.power === '-' ? '无' : item.power }}</text>
-								</view>
-								<view class="detail-item">
-									<text class="detail-label">命中率：</text>
-									<text class="detail-value">{{ item.accuracy === '-' ? '必中' : item.accuracy }}</text>
-								</view>
-								<view class="detail-item">
-									<text class="detail-label">PP值：</text>
-									<text class="detail-value">{{ item.pp }}</text>
-								</view>
-								<view class="detail-item">
-									<text class="detail-label">优先度：</text>
-									<text class="detail-value">{{ item.priority }}</text>
-								</view>
+				</view>
+				<text class="move-stats">威力：{{ item.power }} 命中：{{ item.accuracy }} PP:{{ item.pp }} 优先：{{ item.priority }}</text>
+				
+				<!-- 展开栏 -->
+				<view v-if="item.expanded" class="expand-panel">
+					<view class="expand-content">
+						<text class="expand-title">招式说明</text>
+						<text class="expand-description">{{ item.flavor_text || '暂无详细描述' }}</text>
+						<view class="expand-details">
+							<view class="detail-item">
+								<text class="detail-label">属性：</text>
+								<text class="detail-value">{{ item.type }}</text>
+							</view>
+							<view class="detail-item">
+								<text class="detail-label">分类：</text>
+								<text class="detail-value">{{ item.category }}</text>
+							</view>
+							<view class="detail-item">
+								<text class="detail-label">威力：</text>
+								<text class="detail-value">{{ item.power === '-' ? '无' : item.power }}</text>
+							</view>
+							<view class="detail-item">
+								<text class="detail-label">命中率：</text>
+								<text class="detail-value">{{ item.accuracy === '-' ? '必中' : item.accuracy }}</text>
+							</view>
+							<view class="detail-item">
+								<text class="detail-label">PP值：</text>
+								<text class="detail-value">{{ item.pp }}</text>
+							</view>
+							<view class="detail-item">
+								<text class="detail-label">优先度：</text>
+								<text class="detail-value">{{ item.priority }}</text>
 							</view>
 						</view>
 					</view>
 				</view>
 			</view>
+		</view>
+		
+		<!-- 加载更多提示 -->
+		<view v-if="pagination.isLoadingMore" class="load-more">
+			<text>正在加载更多招式...</text>
+		</view>
+		<view v-else-if="!pagination.hasMore && !isAbilityList" class="load-more-end">
+			<text>已加载全部招式</text>
+		</view>
+		<!-- 手动加载更多按钮 -->
+		<view v-if="pagination.hasMore && !isAbilityList && !pagination.isLoadingMore" class="load-more-btn" @click="loadMoreMoves">
+			<text class="load-btn-text">加载下50条招式数据</text>
+			<text class="load-btn-icon">▼</text>
+		</view>
 			
-			<!-- 特性列表 -->
-			<view v-if="isAbilityList" v-for="(item, index) in filteredAbilityList" :key="'ability-' + index" class="ability-card">
-				<text class="ability-index">{{ item.id }}</text>
-				<view class="ability-info">
-					<view class="ability-header" @click="toggleExpand(index, 'ability')">
-						<text class="ability-name">{{ item.name }}</text>
-						<view class="ability-tags">
-							<view class="ability-type-tag">{{ item.type }}</view>
-							<!-- 展开箭头 -->
-							<view class="expand-arrow" :class="{ expanded: item.expanded }">
-								<text>▼</text>
+				<!-- 特性列表 -->
+				<view v-if="isAbilityList" v-for="(item, index) in filteredAbilityList" :key="'ability-' + index" class="ability-card">
+					<text class="ability-index">{{ item.id }}</text>
+					<view class="ability-info">
+						<view class="ability-header" @click="toggleExpand(index, 'ability')">
+							<text class="ability-name">{{ item.name }}</text>
+							<view class="ability-tags">
+								<!-- 展开箭头 -->
+								<view class="expand-arrow" :class="{ expanded: item.expanded }">
+									<text>▼</text>
+								</view>
+							</view>
+						</view>
+						<text class="ability-effect">{{ item.description }}</text>
+						
+						<!-- 展开栏 -->
+						<view v-if="item.expanded" class="expand-panel">
+							<view class="expand-content">
+								<text class="expand-title">特性说明</text>
+								<text class="expand-description">{{ item.description }}</text>
 							</view>
 						</view>
 					</view>
-					<text class="ability-effect">{{ item.shortEffect }}</text>
-					
-					<!-- 展开栏 -->
-					<view v-if="item.expanded" class="expand-panel">
-						<view class="expand-content">
-							<text class="expand-title">特性说明</text>
-							<text class="expand-description">{{ item.fullEffect }}</text>
-						</view>
-					</view>
 				</view>
-			</view>
+				
+				<!-- 特性列表加载更多提示 -->
+				<view v-if="paginationAbility.isLoadingMore" class="load-more">
+					<text>正在加载更多特性...</text>
+				</view>
+				<view v-else-if="!paginationAbility.hasMore && isAbilityList" class="load-more-end">
+					<text>已加载全部特性</text>
+				</view>
+				<!-- 特性列表手动加载更多按钮 -->
+				<view v-if="paginationAbility.hasMore && isAbilityList && !paginationAbility.isLoadingMore" class="load-more-btn" @click="loadMoreAbilities">
+					<text class="load-btn-text">加载下50条特性数据</text>
+					<text class="load-btn-icon">▼</text>
+				</view>
 		</scroll-view>
 		
 		<!-- 底部导航 -->
@@ -143,6 +168,8 @@
 </template>
 
 <script>
+	import { fetchMovesByPage, fetchAbilitiesByPage } from '../../src/lib/pokeData.js'
+	
 	export default {
 		data() {
 			return {
@@ -150,6 +177,7 @@
 				isAbilityList: false, // 是否显示特性列表
 				sortAscending: true, // 排序方向：true为升序，false为降序
 				activePage: 'moves', // 当前激活的页面
+				scrollTop: 0,
 				navItems: [
 					{ page: 'pokedex', label: '图鉴' },
 					{ page: 'community', label: '社区' },
@@ -242,109 +270,29 @@
 						expanded: false
 					}
 				],
-				moveList: [
-					{
-						id: 1,
-						name: '拍击',
-						power: '40',
-						accuracy: '100%',
-						pp: '35',
-						priority: '0',
-						type: '一般',
-						category: '物理',
-						expanded: false
-					},
-					{
-						id: 2,
-						name: '空手劈',
-						power: '50',
-						accuracy: '100%',
-						pp: '25',
-						priority: '0',
-						type: '格斗',
-						category: '物理',
-						expanded: false
-					},
-					{
-						id: 3,
-						name: '火焰拳',
-						power: '75',
-						accuracy: '100%',
-						pp: '15',
-						priority: '0',
-						type: '火',
-						category: '物理',
-						expanded: false
-					},
-					{
-						id: 4,
-						name: '喷射火焰',
-						power: '90',
-						accuracy: '100%',
-						pp: '15',
-						priority: '0',
-						type: '火',
-						category: '特殊',
-						expanded: false
-					},
-					{
-						id: 5,
-						name: '雷电',
-						power: '100',
-						accuracy: '70%',
-						pp: '10',
-						priority: '0',
-						type: '电',
-						category: '特殊',
-						expanded: false
-					},
-					{
-						id: 6,
-						name: '水炮',
-						power: '110',
-						accuracy: '80%',
-						pp: '5',
-						priority: '0',
-						type: '水',
-						category: '特殊',
-						expanded: false
-					},
-					{
-						id: 7,
-						name: '生长',
-						power: '-',
-						accuracy: '-',
-						pp: '40',
-						priority: '0',
-						type: '草',
-						category: '变化',
-						expanded: false
-					},
-					{
-						id: 8,
-						name: '毒针',
-						power: '15',
-						accuracy: '100%',
-						pp: '35',
-						priority: '0',
-						type: '毒',
-						category: '物理',
-						expanded: false
-					},
-					{
-						id: 9,
-						name: '冥想',
-						power: '-',
-						accuracy: '-',
-						pp: '20',
-						priority: '0',
-						type: '超能力',
-						category: '变化',
-						expanded: false
-					}
-				]
+				moveList: [], // 初始为空数组，将从数据库加载
+				abilityList: [], // 初始为空数组，将从数据库加载
+				isLoading: false, // 初始加载状态
+				isLoadingAbility: false, // 特性加载状态
+				pagination: {
+					currentPage: 1,
+					pageSize: 50,
+					hasMore: true,
+					isLoadingMore: false
+				},
+				paginationAbility: {
+					currentPage: 1,
+					pageSize: 50,
+					hasMore: true,
+					isLoadingMore: false
+				}
 			}
 		},
+		
+		async mounted() {
+			await this.loadMovesData()
+		},
+		
 		computed: {
 			filteredAbilityList() {
 				let list;
@@ -393,6 +341,198 @@
 			}
 		},
 		methods: {
+			// 加载招式数据（分页方式）
+			async loadMovesData() {
+				this.isLoading = true
+				try {
+					const result = await fetchMovesByPage(1, this.pagination.pageSize)
+					this.moveList = result.moves
+					this.pagination.hasMore = result.hasMore
+					this.pagination.currentPage = 1
+					console.log('招式数据加载成功:', this.moveList.length, '个招式，总数据量:', result.totalCount)
+				} catch (error) {
+					console.error('加载招式数据失败:', error)
+					uni.showToast({
+						title: '加载招式数据失败',
+						icon: 'none'
+					})
+				} finally {
+					this.isLoading = false
+				}
+			},
+			
+			// 加载更多招式数据
+			async loadMoreMoves() {
+				if (!this.pagination.hasMore || this.pagination.isLoadingMore) {
+					return
+				}
+				
+				this.pagination.isLoadingMore = true
+				
+				try {
+					const nextPage = this.pagination.currentPage + 1
+					const result = await fetchMovesByPage(nextPage, this.pagination.pageSize)
+					
+					if (result.moves.length > 0) {
+						this.moveList = [...this.moveList, ...result.moves]
+						this.pagination.hasMore = result.hasMore
+						this.pagination.currentPage = nextPage
+						console.log('加载更多招式成功:', result.moves.length, '个招式，当前总数据量:', this.moveList.length)
+					}
+				} catch (error) {
+					console.error('加载更多招式数据失败:', error)
+					uni.showToast({
+						title: '加载更多招式失败',
+						icon: 'none'
+					})
+			} finally {
+				this.pagination.isLoadingMore = false
+			}
+		},
+		
+		// 加载特性数据（分页方式）
+		async loadAbilitiesData() {
+			this.isLoadingAbility = true
+			try {
+				const result = await fetchAbilitiesByPage(1, this.paginationAbility.pageSize)
+				this.abilityList = result.abilities
+				this.paginationAbility.hasMore = result.hasMore
+				this.paginationAbility.currentPage = 1
+				console.log('特性数据加载成功:', this.abilityList.length, '个特性，总数据量:', result.totalCount)
+			} catch (error) {
+				console.error('加载特性数据失败:', error)
+				uni.showToast({
+					title: '加载特性数据失败',
+					icon: 'none'
+				})
+			} finally {
+				this.isLoadingAbility = false
+			}
+		},
+		
+		// 加载更多特性数据
+		async loadMoreAbilities() {
+			if (!this.paginationAbility.hasMore || this.paginationAbility.isLoadingMore) {
+				return
+			}
+			
+			this.paginationAbility.isLoadingMore = true
+			
+			try {
+				const nextPage = this.paginationAbility.currentPage + 1
+				const result = await fetchAbilitiesByPage(nextPage, this.paginationAbility.pageSize)
+				
+				if (result.abilities.length > 0) {
+					this.abilityList = [...this.abilityList, ...result.abilities]
+					this.paginationAbility.hasMore = result.hasMore
+					this.paginationAbility.currentPage = nextPage
+					console.log('加载更多特性成功:', result.abilities.length, '个特性，当前总数据量:', this.abilityList.length)
+				}
+			} catch (error) {
+				console.error('加载更多特性数据失败:', error)
+				uni.showToast({
+					title: '加载更多特性失败',
+					icon: 'none'
+				})
+			} finally {
+				this.paginationAbility.isLoadingMore = false
+			}
+		},
+		
+		// 加载特性数据（分页方式）
+		async loadAbilitiesData() {
+			this.isLoadingAbility = true
+			try {
+				const result = await fetchAbilitiesByPage(1, this.paginationAbility.pageSize)
+				this.abilityList = result.abilities
+				this.paginationAbility.hasMore = result.hasMore
+				this.paginationAbility.currentPage = 1
+				console.log('特性数据加载成功:', this.abilityList.length, '个特性，总数据量:', result.totalCount)
+			} catch (error) {
+				console.error('加载特性数据失败:', error)
+				uni.showToast({
+					title: '加载特性数据失败',
+					icon: 'none'
+				})
+			} finally {
+				this.isLoadingAbility = false
+			}
+		},
+		
+		// 加载更多特性数据
+		async loadMoreAbilities() {
+			if (!this.paginationAbility.hasMore || this.paginationAbility.isLoadingMore) {
+				return
+			}
+			
+			this.paginationAbility.isLoadingMore = true
+			
+			try {
+				const nextPage = this.paginationAbility.currentPage + 1
+				const result = await fetchAbilitiesByPage(nextPage, this.paginationAbility.pageSize)
+				
+				if (result.abilities.length > 0) {
+					this.abilityList = [...this.abilityList, ...result.abilities]
+					this.paginationAbility.hasMore = result.hasMore
+					this.paginationAbility.currentPage = nextPage
+					console.log('加载更多特性成功:', result.abilities.length, '个特性，当前总数据量:', this.abilityList.length)
+				}
+			} catch (error) {
+				console.error('加载更多特性数据失败:', error)
+				uni.showToast({
+					title: '加载更多特性失败',
+					icon: 'none'
+				})
+			} finally {
+				this.paginationAbility.isLoadingMore = false
+			}
+		},
+			
+		// 滚动到底部自动加载更多
+	onScrollToLower() {
+		console.log('滚动到底部，自动加载更多数据')
+		if (!this.isAbilityList && this.pagination.hasMore && !this.pagination.isLoadingMore) {
+			this.loadMoreMoves()
+		}
+	},
+	
+	// 手动检测滚动到底部
+	onScroll(event) {
+		const { scrollHeight, scrollTop, clientHeight } = event.detail
+		const distanceToBottom = scrollHeight - scrollTop - clientHeight
+		
+		// 当距离底部小于50px时自动加载
+		if (distanceToBottom < 50 && !this.isAbilityList && this.pagination.hasMore && !this.pagination.isLoadingMore) {
+			console.log('接近底部，自动加载更多数据', { distanceToBottom, scrollHeight, scrollTop, clientHeight })
+			this.loadMoreMoves()
+		}
+	},
+				
+			// 获取属性颜色
+			getTypeColor(type) {
+				const typeColors = {
+					'一般': '#A8A878',
+					'火': '#F08030',
+					'水': '#6890F0',
+					'草': '#78C850',
+					'电': '#F8D030',
+					'冰': '#98D8D8',
+					'格斗': '#C03028',
+					'毒': '#A040A0',
+					'地面': '#E0C068',
+					'飞行': '#A890F0',
+					'超能力': '#F85888',
+					'虫': '#A8B820',
+					'岩石': '#B8A038',
+					'幽灵': '#705898',
+					'龙': '#7038F8',
+					'恶': '#705848',
+					'钢': '#B8B8D0',
+					'妖精': '#EE99AC'
+				}
+				return typeColors[type] || '#777'
+			},
+			
 			toggleMenu() {
 				uni.showToast({
 					title: '菜单功能开发中',
@@ -429,13 +569,18 @@
 			},
 			
 			// 切换列表类型（招式/特性）
-			toggleListType() {
+			async toggleListType() {
 				this.isAbilityList = !this.isAbilityList
 				this.searchKeyword = '' // 清空搜索关键词
 				
 				// 关闭所有展开项
 				this.moveList.forEach(item => item.expanded = false)
 				this.abilityList.forEach(item => item.expanded = false)
+				
+				// 如果切换到特性列表且未加载过数据，则加载特性数据
+				if (this.isAbilityList && this.abilityList.length === 0) {
+					await this.loadAbilitiesData()
+				}
 			},
 			
 			// 切换展开状态（支持招式和特性）
@@ -498,21 +643,9 @@
 				}
 			},
 			
-			// 获取招式说明
+			// 获取招式说明（现在使用数据库中的flavor_text字段）
 			getMoveDescription(item) {
-				const descriptions = {
-					'拍击': '用长长的尾巴或手等拍打对手进行攻击。',
-					'空手劈': '用锋利的手刀劈向对手进行攻击。容易击中要害。',
-					'火焰拳': '用充满火焰的拳头攻击对手。有时会让对手陷入灼伤状态。',
-					'喷射火焰': '向对手发射烈焰进行攻击。有时会让对手陷入灼伤状态。',
-					'雷电': '用强大的电流攻击对手。有时会让对手陷入麻痹状态。',
-					'水炮': '向对手喷射强力水流进行攻击。',
-					'生长': '让身体一下子长大，从而提高攻击和特攻。',
-					'毒针': '将有毒的针刺向对手进行攻击。有时会让对手陷入中毒状态。',
-					'冥想': '静心凝神，从而提高自己的特攻和特防。'
-				}
-				
-				return descriptions[item.name] || `这是${item.name}招式，属于${item.type}属性${item.category}类招式。`
+				return item.flavor_text || `这是${item.name}招式，属于${item.type}属性${item.category}类招式。`
 			}
 		}
 	}
@@ -1408,6 +1541,67 @@
 	
 	.nav-button.active text {
 		color: var(--primary-red);
+		font-weight: bold;
+	}
+	
+	/* 加载更多按钮样式 */
+	.load-more-btn {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		padding: 30rpx 0;
+		background: linear-gradient(135deg, var(--primary-red), var(--primary-variant));
+		border-radius: 20rpx;
+		margin: 30rpx 0;
+		cursor: pointer;
+		transition: var(--transition);
+		box-shadow: var(--card-shadow);
+	}
+	
+	.load-more-btn:active {
+		transform: scale(0.95);
+		box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+	}
+	
+	.load-btn-text {
+		font-size: 28rpx;
+		color: white;
+		font-weight: bold;
+		margin-bottom: 10rpx;
+	}
+	
+	.load-btn-icon {
+		font-size: 24rpx;
+		color: white;
+		animation: bounce 1.5s infinite;
+	}
+	
+	@keyframes bounce {
+		0%, 20%, 50%, 80%, 100% {
+			transform: translateY(0);
+		}
+		40% {
+			transform: translateY(-8rpx);
+		}
+		60% {
+			transform: translateY(-4rpx);
+		}
+	}
+	
+	/* 加载更多提示样式 */
+	.load-more {
+		text-align: center;
+		padding: 30rpx 0;
+		color: #999;
+		font-size: 26rpx;
+	}
+	
+	.load-more-end {
+		text-align: center;
+		padding: 30rpx 0;
+		color: #78c850;
+		font-size: 26rpx;
 		font-weight: bold;
 	}
 </style>

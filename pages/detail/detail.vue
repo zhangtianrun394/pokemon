@@ -24,7 +24,7 @@
             <div class="pokemon-number">#{{ pokemon.index ? String(pokemon.index).padStart(4, '0') : (form.pokemon_id ? String(form.pokemon_id).padStart(4, '0') : '') }}</div>
             
             <div class="pokemon-image">
-                <image :src="getImageUrl(form.image)" mode="aspectFit" style="width: 150px; height: 150px;"></image>
+                <image :src="getImageUrl(form.form_id)" mode="aspectFit" style="width: 150px; height: 150px;"></image>
             </div>
             
             <h1 class="pokemon-name">{{ pokemon.name }}</h1>
@@ -100,11 +100,11 @@
         </div>
         
         <div class="navigation">
-            <div class="nav-item active">基本信息</div>
-            <div class="nav-item">技能招式</div>
-            <div class="nav-item">获得方式</div>
-            <div class="nav-item">配招培育</div>
-            <div class="nav-item">相关</div>
+            <div class="nav-item" :class="{ active: activeTab === '基本信息' }" @click="switchTab('基本信息')">基本信息</div>
+            <div class="nav-item" :class="{ active: activeTab === '技能招式' }" @click="goToMoves">技能招式</div>
+            <div class="nav-item" :class="{ active: activeTab === '获得方式' }" @click="switchTab('获得方式')">获得方式</div>
+            <div class="nav-item" :class="{ active: activeTab === '配招培育' }" @click="switchTab('配招培育')">配招培育</div>
+            <div class="nav-item" :class="{ active: activeTab === '相关' }" @click="switchTab('相关')">相关</div>
         </div>
     </div>
 </template>
@@ -228,6 +228,18 @@ export default {
         },
         switchTab(tabName) {
             this.activeTab = tabName;
+        },
+        goToMoves() {
+            // 跳转到技能招式详情页面，传递pokemon_id
+            const pokemonId = this.form.pokemon_id;
+            const pokemonName = this.pokemon.name || '未知宝可梦';
+            if (!pokemonId) {
+                uni.showToast({ title: '缺少宝可梦ID', icon: 'none' });
+                return;
+            }
+            uni.navigateTo({
+                url: `/pages/moves/detail?pokemonId=${pokemonId}&pokemonName=${encodeURIComponent(pokemonName)}`
+            });
         },
         getColorValue(colorName) {
             // 将中文颜色名转换为CSS颜色值（基于数据库实际颜色值）

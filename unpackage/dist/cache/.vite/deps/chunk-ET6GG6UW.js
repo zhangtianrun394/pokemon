@@ -32,7 +32,7 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
 ));
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
-// ../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/node-fetch/browser.js
+// ../../../../../宝可梦图鉴 社区版/node_modules/@supabase/node-fetch/browser.js
 var browser_exports = {};
 __export(browser_exports, {
   Headers: () => Headers,
@@ -43,7 +43,7 @@ __export(browser_exports, {
 });
 var getGlobal, globalObject, fetch, browser_default, Headers, Request, Response;
 var init_browser = __esm({
-  "../../../../../宝可梦图鉴 - 副本 (2)/node_modules/@supabase/node-fetch/browser.js"() {
+  "../../../../../宝可梦图鉴 社区版/node_modules/@supabase/node-fetch/browser.js"() {
     getGlobal = function() {
       if (typeof self !== "undefined") {
         return self;
@@ -79,4 +79,4 @@ export {
   browser_exports,
   init_browser
 };
-//# sourceMappingURL=chunk-NCJP3WJT.js.map
+//# sourceMappingURL=chunk-ET6GG6UW.js.map
